@@ -1,9 +1,13 @@
 configVersion: 1.0.0
+management:
+  docChecksum: 68d3f3a7f8d3dad7c91a218e0e001153
+  docVersion: 2.0.0
+  speakeasyVersion: 1.9.1
 generation:
   telemetryEnabled: false
   sdkClassName: SDK
   sdkFlattening: false
 typescript:
-  version: ""
+  version: 0.1.0
   author: calendly
   packageName: calendly
