@@ -15,13 +15,13 @@
 ### NPM
 
 ```bash
-npm add calendly
+npm add @speakeasy-sdks/calendly
 ```
 
 ### Yarn
 
 ```bash
-yarn add calendly
+yarn add @speakeasy-sdks/calendly
 ```
 <!-- End SDK Installation -->
 
@@ -32,10 +32,10 @@ import {
   ListScheduledEventsRequest,
   ListScheduledEventsResponse,
   ListScheduledEventsStatusEnum,
-} from "calendly/dist/sdk/models/operations";
+} from "@speakeasy-sdks/calendly/dist/sdk/models/operations";
 
 import { AxiosError } from "axios";
-import { Calendly } from "calendly";
+import { Calendly } from "@speakeasy-sdks/calendly";
 const sdk = new Calendly({
   security: {
     oauth2: "Bearer YOUR_ACCESS_TOKEN_HERE",

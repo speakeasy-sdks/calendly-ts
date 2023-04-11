@@ -27,3 +27,11 @@ Based on:
 - Speakeasy CLI 1.19.6 (2.17.8) https://github.com/speakeasy-api/speakeasy
 ### Releases
 - [NPM v0.0.2] https://www.npmjs.com/package/calendly/v/0.0.2 - .
+
+## 2023-04-11 12:45:08
+### Changes
+Based on:
+- OpenAPI Doc 2.0.0 ./openapi/openapi.yaml
+- Speakeasy CLI 1.19.6 (2.17.8) https://github.com/speakeasy-api/speakeasy
+### Releases
+- [NPM v0.0.3] https://www.npmjs.com/package/@speakeasy-sdks/calendly/v/0.0.3 - .
