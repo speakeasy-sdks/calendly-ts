@@ -10,12 +10,12 @@ import { Expose, Type } from "class-transformer";
 /**
  * Whether the scheduled event is `active` or `canceled`
  */
-export enum GetScheduledEventsStatusEnum {
+export enum ListScheduledEventsStatusEnum {
   Active = "active",
   Canceled = "canceled",
 }
 
-export class GetScheduledEventsRequest extends SpeakeasyBase {
+export class ListScheduledEventsRequest extends SpeakeasyBase {
   /**
    * The number of rows to return
    */
@@ -78,7 +78,7 @@ export class GetScheduledEventsRequest extends SpeakeasyBase {
   @SpeakeasyMetadata({
     data: "queryParam, style=form;explode=true;name=status",
   })
-  status?: GetScheduledEventsStatusEnum;
+  status?: ListScheduledEventsStatusEnum;
 
   /**
    * Return events that are scheduled with the user associated with this URI
@@ -87,31 +87,31 @@ export class GetScheduledEventsRequest extends SpeakeasyBase {
   user?: string;
 }
 
-export enum GetScheduledEvents403ApplicationJSONMessageEnum {
+export enum ListScheduledEvents403ApplicationJSONMessageEnum {
   YouDoNotHavePermissionToAccessThisResource = "You do not have permission to access this resource.",
   PleaseAlsoSpecifyOrganizationWhenRequestingEventsForAUserWithinYourOrganization = "Please also specify organization when requesting events for a user within your organization.",
   ThisUserIsNotInYourOrganization = "This user is not in your organization",
   YouDoNotHavePermission = "You do not have permission",
 }
 
-export enum GetScheduledEvents403ApplicationJSONTitleEnum {
+export enum ListScheduledEvents403ApplicationJSONTitleEnum {
   PermissionDenied = "Permission Denied",
 }
 
 /**
  * Permission Denied
  */
-export class GetScheduledEvents403ApplicationJSON extends SpeakeasyBase {
+export class ListScheduledEvents403ApplicationJSON extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
-  message?: GetScheduledEvents403ApplicationJSONMessageEnum;
+  message?: ListScheduledEvents403ApplicationJSONMessageEnum;
 
   @SpeakeasyMetadata()
   @Expose({ name: "title" })
-  title?: GetScheduledEvents403ApplicationJSONTitleEnum;
+  title?: ListScheduledEvents403ApplicationJSONTitleEnum;
 }
 
-export class GetScheduledEventsErrorResponseDetails extends SpeakeasyBase {
+export class ListScheduledEventsErrorResponseDetails extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
   message: string;
@@ -124,11 +124,11 @@ export class GetScheduledEventsErrorResponseDetails extends SpeakeasyBase {
 /**
  * Error Object
  */
-export class GetScheduledEventsErrorResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata({ elemType: GetScheduledEventsErrorResponseDetails })
+export class ListScheduledEventsErrorResponse extends SpeakeasyBase {
+  @SpeakeasyMetadata({ elemType: ListScheduledEventsErrorResponseDetails })
   @Expose({ name: "details" })
-  @Type(() => GetScheduledEventsErrorResponseDetails)
-  details?: GetScheduledEventsErrorResponseDetails[];
+  @Type(() => ListScheduledEventsErrorResponseDetails)
+  details?: ListScheduledEventsErrorResponseDetails[];
 
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
@@ -142,7 +142,7 @@ export class GetScheduledEventsErrorResponse extends SpeakeasyBase {
 /**
  * Service response
  */
-export class GetScheduledEvents200ApplicationJSON extends SpeakeasyBase {
+export class ListScheduledEvents200ApplicationJSON extends SpeakeasyBase {
   /**
    * The set of scheduled events matching the criteria
    */
@@ -157,7 +157,7 @@ export class GetScheduledEvents200ApplicationJSON extends SpeakeasyBase {
   pagination: shared.Pagination;
 }
 
-export class GetScheduledEventsResponse extends SpeakeasyBase {
+export class ListScheduledEventsResponse extends SpeakeasyBase {
   @SpeakeasyMetadata()
   contentType: string;
 
@@ -165,7 +165,7 @@ export class GetScheduledEventsResponse extends SpeakeasyBase {
    * Request is not valid
    */
   @SpeakeasyMetadata()
-  errorResponse?: GetScheduledEventsErrorResponse;
+  errorResponse?: ListScheduledEventsErrorResponse;
 
   @SpeakeasyMetadata()
   statusCode: number;
@@ -177,11 +177,11 @@ export class GetScheduledEventsResponse extends SpeakeasyBase {
    * OK
    */
   @SpeakeasyMetadata()
-  getScheduledEvents200ApplicationJSONObject?: GetScheduledEvents200ApplicationJSON;
+  listScheduledEvents200ApplicationJSONObject?: ListScheduledEvents200ApplicationJSON;
 
   /**
    * Permission Denied
    */
   @SpeakeasyMetadata()
-  getScheduledEvents403ApplicationJSONObject?: GetScheduledEvents403ApplicationJSON;
+  listScheduledEvents403ApplicationJSONObject?: ListScheduledEvents403ApplicationJSON;
 }

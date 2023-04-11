@@ -1,9 +1,9 @@
 <!-- Start SDK Example Usage -->
 ```typescript
 import {
-  ActivityLogRequest,
-  ActivityLogResponse,
-  ActivityLogSortEnum,
+  ListScheduledEventsRequest,
+  ListScheduledEventsResponse,
+  ListScheduledEventsStatusEnum,
 } from "calendly/dist/sdk/models/operations";
 
 import { AxiosError } from "axios";
@@ -14,37 +14,19 @@ const sdk = new SDK({
   },
 });
 
-const req: ActivityLogRequest = {
-  action: [
-    "provident",
-    "distinctio",
-    "quibusdam",
-  ],
-  actor: [
-    "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ",
-    "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ",
-    "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ",
-  ],
-  count: 857946,
-  maxOccurredAt: "2021-04-22T12:08:58.275Z",
-  minOccurredAt: "2022-05-18T09:34:54.894Z",
-  namespace: [
-    "suscipit",
-    "iure",
-    "magnam",
-  ],
+const req: ListScheduledEventsRequest = {
+  count: 5488.14,
+  inviteeEmail: "alice@example.com",
+  maxStartTime: "provident",
+  minStartTime: "distinctio",
   organization: "https://api.calendly.com/organizations/EBHAAFHDCAEQTSEZ",
-  pageToken: "debitis",
-  searchTerm: "ipsa",
-  sort: [
-    ActivityLogSortEnum.ActorDisplayNameAsc,
-    ActivityLogSortEnum.ActorDisplayNameDesc,
-    ActivityLogSortEnum.ActorUriAsc,
-    ActivityLogSortEnum.NamespaceDesc,
-  ],
+  pageToken: "quibusdam",
+  sort: "unde",
+  status: ListScheduledEventsStatusEnum.Canceled,
+  user: "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ",
 };
 
-sdk.activityLog.activityLog(req).then((res: ActivityLogResponse | AxiosError) => {
+sdk.scheduledEvents.list(req).then((res: ListScheduledEventsResponse | AxiosError) => {
    // handle response
 });
 ```

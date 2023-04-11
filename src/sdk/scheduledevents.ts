@@ -32,31 +32,49 @@ export class ScheduledEvents {
   }
 
   /**
-   * Delete Invitee No Show
+   * Cancel Event
    *
    * @remarks
-   * Undoes marking an Invitee as a No Show.
+   * Cancels specified event.
    */
-  deleteInviteeNoShow(
-    req: operations.DeleteInviteeNoShowRequest,
+  cancel(
+    req: operations.PostScheduledEventsUuidCancellationRequest,
     config?: AxiosRequestConfig
-  ): Promise<operations.DeleteInviteeNoShowResponse> {
+  ): Promise<operations.PostScheduledEventsUuidCancellationResponse> {
     if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.DeleteInviteeNoShowRequest(req);
+      req = new operations.PostScheduledEventsUuidCancellationRequest(req);
     }
 
     const baseURL: string = this._serverURL;
     const url: string = utils.generateURL(
       baseURL,
-      "/invitee_no_shows/{uuid}",
+      "/scheduled_events/{uuid}/cancellation",
       req
     );
 
+    let [reqBodyHeaders, reqBody]: [object, any] = [{}, {}];
+
+    try {
+      [reqBodyHeaders, reqBody] = utils.serializeRequestBody(
+        req,
+        "requestBody",
+        "json"
+      );
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(`Error serializing request body, cause: ${e.message}`);
+      }
+    }
+
     const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const headers = { ...reqBodyHeaders, ...config?.headers };
 
     const r = client.request({
       url: url,
-      method: "delete",
+      method: "post",
+      headers: headers,
+      data: reqBody,
       ...config,
     });
 
@@ -65,21 +83,37 @@ export class ScheduledEvents {
 
       if (httpRes?.status == null)
         throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.DeleteInviteeNoShowResponse =
-        new operations.DeleteInviteeNoShowResponse({
+      const res: operations.PostScheduledEventsUuidCancellationResponse =
+        new operations.PostScheduledEventsUuidCancellationResponse({
           statusCode: httpRes.status,
           contentType: contentType,
           rawResponse: httpRes,
         });
       switch (true) {
-        case httpRes?.status == 204:
+        case httpRes?.status == 201:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.postScheduledEventsUuidCancellation201ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.PostScheduledEventsUuidCancellation201ApplicationJSON
+              );
+          }
           break;
-        case [401, 403, 404, 500].includes(httpRes?.status):
+        case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
             res.errorResponse = utils.deserializeJSONResponse(
               httpRes?.data,
-              operations.DeleteInviteeNoShowErrorResponse
+              operations.PostScheduledEventsUuidCancellationErrorResponse
             );
+          }
+          break;
+        case httpRes?.status == 403:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.postScheduledEventsUuidCancellation403ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.PostScheduledEventsUuidCancellation403ApplicationJSON
+              );
           }
           break;
       }
@@ -89,34 +123,47 @@ export class ScheduledEvents {
   }
 
   /**
-   * Get Event Invitee
+   * Create Invitee No Show
    *
    * @remarks
-   * Returns information about a specified Invitee (person invited to an event).
+   * Marks an Invitee as a No Show.
    */
-  getScheduledEventsEventUuidInviteesInviteeUuid(
-    req: operations.GetScheduledEventsEventUuidInviteesInviteeUuidRequest,
+  createNoShow(
+    req: operations.PostInviteeNoShowRequestBody,
     config?: AxiosRequestConfig
-  ): Promise<operations.GetScheduledEventsEventUuidInviteesInviteeUuidResponse> {
+  ): Promise<operations.PostInviteeNoShowResponse> {
     if (!(req instanceof utils.SpeakeasyBase)) {
-      req =
-        new operations.GetScheduledEventsEventUuidInviteesInviteeUuidRequest(
-          req
-        );
+      req = new operations.PostInviteeNoShowRequestBody(req);
     }
 
     const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/scheduled_events/{event_uuid}/invitees/{invitee_uuid}",
-      req
-    );
+    const url: string = baseURL.replace(/\/$/, "") + "/invitee_no_shows";
+
+    let [reqBodyHeaders, reqBody]: [object, any] = [{}, {}];
+
+    try {
+      [reqBodyHeaders, reqBody] = utils.serializeRequestBody(
+        req,
+        "request",
+        "json"
+      );
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        throw new Error(`Error serializing request body, cause: ${e.message}`);
+      }
+    }
 
     const client: AxiosInstance = this._securityClient || this._defaultClient;
 
+    const headers = { ...reqBodyHeaders, ...config?.headers };
+    if (reqBody == null || Object.keys(reqBody).length === 0)
+      throw new Error("request body is required");
+
     const r = client.request({
       url: url,
-      method: "get",
+      method: "post",
+      headers: headers,
+      data: reqBody,
       ...config,
     });
 
@@ -125,35 +172,27 @@ export class ScheduledEvents {
 
       if (httpRes?.status == null)
         throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetScheduledEventsEventUuidInviteesInviteeUuidResponse =
-        new operations.GetScheduledEventsEventUuidInviteesInviteeUuidResponse({
+      const res: operations.PostInviteeNoShowResponse =
+        new operations.PostInviteeNoShowResponse({
           statusCode: httpRes.status,
           contentType: contentType,
           rawResponse: httpRes,
         });
       switch (true) {
-        case httpRes?.status == 200:
+        case httpRes?.status == 201:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getScheduledEventsEventUuidInviteesInviteeUuid200ApplicationJSONObject =
+            res.postInviteeNoShow201ApplicationJSONObject =
               utils.deserializeJSONResponse(
                 httpRes?.data,
-                operations.GetScheduledEventsEventUuidInviteesInviteeUuid200ApplicationJSON
+                operations.PostInviteeNoShow201ApplicationJSON
               );
           }
           break;
-        case [400, 401, 404, 500].includes(httpRes?.status):
+        case [400, 401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
             res.errorResponse = utils.deserializeJSONResponse(
               httpRes?.data,
-              operations.GetScheduledEventsEventUuidInviteesInviteeUuidErrorResponse
-            );
-          }
-          break;
-        case httpRes?.status == 403:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
-              httpRes?.data,
-              shared.ErrorResponse
+              operations.PostInviteeNoShowErrorResponse
             );
           }
           break;
@@ -169,7 +208,7 @@ export class ScheduledEvents {
    * @remarks
    * Returns information about a specified Event.
    */
-  getScheduledEventsUuid(
+  getEventByUuid(
     req: operations.GetScheduledEventsUuidRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GetScheduledEventsUuidResponse> {
@@ -228,70 +267,6 @@ export class ScheduledEvents {
                 httpRes?.data,
                 operations.GetScheduledEventsUuid403ApplicationJSON
               );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
-   * Get Invitee No Show
-   *
-   * @remarks
-   * Returns information about a specified Invitee No Show.
-   */
-  getInviteeNoShow(
-    req: operations.GetInviteeNoShowRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GetInviteeNoShowResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GetInviteeNoShowRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/invitee_no_shows/{uuid}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const r = client.request({
-      url: url,
-      method: "get",
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetInviteeNoShowResponse =
-        new operations.GetInviteeNoShowResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.getInviteeNoShow200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetInviteeNoShow200ApplicationJSON
-              );
-          }
-          break;
-        case [400, 401, 403, 404].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.GetInviteeNoShowErrorResponse
-            );
           }
           break;
       }
@@ -376,6 +351,145 @@ export class ScheduledEvents {
   }
 
   /**
+   * Get Event Invitee
+   *
+   * @remarks
+   * Returns information about a specified Invitee (person invited to an event).
+   */
+  getInviteesByUuid(
+    req: operations.GetScheduledEventsEventUuidInviteesInviteeUuidRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.GetScheduledEventsEventUuidInviteesInviteeUuidResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req =
+        new operations.GetScheduledEventsEventUuidInviteesInviteeUuidRequest(
+          req
+        );
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string = utils.generateURL(
+      baseURL,
+      "/scheduled_events/{event_uuid}/invitees/{invitee_uuid}",
+      req
+    );
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const r = client.request({
+      url: url,
+      method: "get",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.GetScheduledEventsEventUuidInviteesInviteeUuidResponse =
+        new operations.GetScheduledEventsEventUuidInviteesInviteeUuidResponse({
+          statusCode: httpRes.status,
+          contentType: contentType,
+          rawResponse: httpRes,
+        });
+      switch (true) {
+        case httpRes?.status == 200:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.getScheduledEventsEventUuidInviteesInviteeUuid200ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.GetScheduledEventsEventUuidInviteesInviteeUuid200ApplicationJSON
+              );
+          }
+          break;
+        case [400, 401, 404, 500].includes(httpRes?.status):
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.GetScheduledEventsEventUuidInviteesInviteeUuidErrorResponse
+            );
+          }
+          break;
+        case httpRes?.status == 403:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse1 = utils.deserializeJSONResponse(
+              httpRes?.data,
+              shared.ErrorResponse
+            );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
+   * Get Invitee No Show
+   *
+   * @remarks
+   * Returns information about a specified Invitee No Show.
+   */
+  getNoShow(
+    req: operations.GetInviteeNoShowRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.GetInviteeNoShowResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req = new operations.GetInviteeNoShowRequest(req);
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string = utils.generateURL(
+      baseURL,
+      "/invitee_no_shows/{uuid}",
+      req
+    );
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const r = client.request({
+      url: url,
+      method: "get",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.GetInviteeNoShowResponse =
+        new operations.GetInviteeNoShowResponse({
+          statusCode: httpRes.status,
+          contentType: contentType,
+          rawResponse: httpRes,
+        });
+      switch (true) {
+        case httpRes?.status == 200:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.getInviteeNoShow200ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.GetInviteeNoShow200ApplicationJSON
+              );
+          }
+          break;
+        case [400, 401, 403, 404].includes(httpRes?.status):
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.GetInviteeNoShowErrorResponse
+            );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
    * List Events
    *
    * @remarks
@@ -389,12 +503,12 @@ export class ScheduledEvents {
    *
    * * `user` can only be used alone when requesting your own personal events. This will return your events within any organization that you are currently in or were a part of in the past.
    */
-  getScheduledEvents(
-    req: operations.GetScheduledEventsRequest,
+  list(
+    req: operations.ListScheduledEventsRequest,
     config?: AxiosRequestConfig
-  ): Promise<operations.GetScheduledEventsResponse> {
+  ): Promise<operations.ListScheduledEventsResponse> {
     if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GetScheduledEventsRequest(req);
+      req = new operations.ListScheduledEventsRequest(req);
     }
 
     const baseURL: string = this._serverURL;
@@ -415,8 +529,8 @@ export class ScheduledEvents {
 
       if (httpRes?.status == null)
         throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetScheduledEventsResponse =
-        new operations.GetScheduledEventsResponse({
+      const res: operations.ListScheduledEventsResponse =
+        new operations.ListScheduledEventsResponse({
           statusCode: httpRes.status,
           contentType: contentType,
           rawResponse: httpRes,
@@ -424,10 +538,10 @@ export class ScheduledEvents {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getScheduledEvents200ApplicationJSONObject =
+            res.listScheduledEvents200ApplicationJSONObject =
               utils.deserializeJSONResponse(
                 httpRes?.data,
-                operations.GetScheduledEvents200ApplicationJSON
+                operations.ListScheduledEvents200ApplicationJSON
               );
           }
           break;
@@ -435,16 +549,16 @@ export class ScheduledEvents {
           if (utils.matchContentType(contentType, `application/json`)) {
             res.errorResponse = utils.deserializeJSONResponse(
               httpRes?.data,
-              operations.GetScheduledEventsErrorResponse
+              operations.ListScheduledEventsErrorResponse
             );
           }
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getScheduledEvents403ApplicationJSONObject =
+            res.listScheduledEvents403ApplicationJSONObject =
               utils.deserializeJSONResponse(
                 httpRes?.data,
-                operations.GetScheduledEvents403ApplicationJSON
+                operations.ListScheduledEvents403ApplicationJSON
               );
           }
           break;
@@ -455,49 +569,31 @@ export class ScheduledEvents {
   }
 
   /**
-   * Cancel Event
+   * Delete Invitee No Show
    *
    * @remarks
-   * Cancels specified event.
+   * Undoes marking an Invitee as a No Show.
    */
-  postScheduledEventsUuidCancellationJson(
-    req: operations.PostScheduledEventsUuidCancellationJsonRequest,
+  unmarkNoShow(
+    req: operations.DeleteInviteeNoShowRequest,
     config?: AxiosRequestConfig
-  ): Promise<operations.PostScheduledEventsUuidCancellationJsonResponse> {
+  ): Promise<operations.DeleteInviteeNoShowResponse> {
     if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.PostScheduledEventsUuidCancellationJsonRequest(req);
+      req = new operations.DeleteInviteeNoShowRequest(req);
     }
 
     const baseURL: string = this._serverURL;
     const url: string = utils.generateURL(
       baseURL,
-      "/scheduled_events/{uuid}/cancellation",
+      "/invitee_no_shows/{uuid}",
       req
     );
 
-    let [reqBodyHeaders, reqBody]: [object, any] = [{}, {}];
-
-    try {
-      [reqBodyHeaders, reqBody] = utils.serializeRequestBody(
-        req,
-        "requestBody",
-        "json"
-      );
-    } catch (e: unknown) {
-      if (e instanceof Error) {
-        throw new Error(`Error serializing request body, cause: ${e.message}`);
-      }
-    }
-
     const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...reqBodyHeaders, ...config?.headers };
 
     const r = client.request({
       url: url,
-      method: "post",
-      headers: headers,
-      data: reqBody,
+      method: "delete",
       ...config,
     });
 
@@ -506,300 +602,20 @@ export class ScheduledEvents {
 
       if (httpRes?.status == null)
         throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.PostScheduledEventsUuidCancellationJsonResponse =
-        new operations.PostScheduledEventsUuidCancellationJsonResponse({
+      const res: operations.DeleteInviteeNoShowResponse =
+        new operations.DeleteInviteeNoShowResponse({
           statusCode: httpRes.status,
           contentType: contentType,
           rawResponse: httpRes,
         });
       switch (true) {
-        case httpRes?.status == 201:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.postScheduledEventsUuidCancellationJSON201ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.PostScheduledEventsUuidCancellationJson201ApplicationJSON
-              );
-          }
+        case httpRes?.status == 204:
           break;
-        case [400, 401, 404, 500].includes(httpRes?.status):
+        case [401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
             res.errorResponse = utils.deserializeJSONResponse(
               httpRes?.data,
-              operations.PostScheduledEventsUuidCancellationJsonErrorResponse
-            );
-          }
-          break;
-        case httpRes?.status == 403:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.postScheduledEventsUuidCancellationJSON403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.PostScheduledEventsUuidCancellationJson403ApplicationJSON
-              );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
-   * Cancel Event
-   *
-   * @remarks
-   * Cancels specified event.
-   */
-  postScheduledEventsUuidCancellationMultipart(
-    req: operations.PostScheduledEventsUuidCancellationMultipartRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.PostScheduledEventsUuidCancellationMultipartResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.PostScheduledEventsUuidCancellationMultipartRequest(
-        req
-      );
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/scheduled_events/{uuid}/cancellation",
-      req
-    );
-
-    let [reqBodyHeaders, reqBody]: [object, any] = [{}, {}];
-
-    try {
-      [reqBodyHeaders, reqBody] = utils.serializeRequestBody(
-        req,
-        "requestBody",
-        "multipart"
-      );
-    } catch (e: unknown) {
-      if (e instanceof Error) {
-        throw new Error(`Error serializing request body, cause: ${e.message}`);
-      }
-    }
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...reqBodyHeaders, ...config?.headers };
-
-    const r = client.request({
-      url: url,
-      method: "post",
-      headers: headers,
-      data: reqBody,
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.PostScheduledEventsUuidCancellationMultipartResponse =
-        new operations.PostScheduledEventsUuidCancellationMultipartResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 201:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.postScheduledEventsUuidCancellationMultipart201ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.PostScheduledEventsUuidCancellationMultipart201ApplicationJSON
-              );
-          }
-          break;
-        case [400, 401, 404, 500].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.PostScheduledEventsUuidCancellationMultipartErrorResponse
-            );
-          }
-          break;
-        case httpRes?.status == 403:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.postScheduledEventsUuidCancellationMultipart403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.PostScheduledEventsUuidCancellationMultipart403ApplicationJSON
-              );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
-   * Cancel Event
-   *
-   * @remarks
-   * Cancels specified event.
-   */
-  postScheduledEventsUuidCancellationRaw(
-    req: operations.PostScheduledEventsUuidCancellationRawRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.PostScheduledEventsUuidCancellationRawResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.PostScheduledEventsUuidCancellationRawRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/scheduled_events/{uuid}/cancellation",
-      req
-    );
-
-    let [reqBodyHeaders, reqBody]: [object, any] = [{}, {}];
-
-    try {
-      [reqBodyHeaders, reqBody] = utils.serializeRequestBody(
-        req,
-        "requestBody",
-        "raw"
-      );
-    } catch (e: unknown) {
-      if (e instanceof Error) {
-        throw new Error(`Error serializing request body, cause: ${e.message}`);
-      }
-    }
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...reqBodyHeaders, ...config?.headers };
-
-    const r = client.request({
-      url: url,
-      method: "post",
-      headers: headers,
-      data: reqBody,
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.PostScheduledEventsUuidCancellationRawResponse =
-        new operations.PostScheduledEventsUuidCancellationRawResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 201:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.postScheduledEventsUuidCancellationRaw201ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.PostScheduledEventsUuidCancellationRaw201ApplicationJSON
-              );
-          }
-          break;
-        case [400, 401, 404, 500].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.PostScheduledEventsUuidCancellationRawErrorResponse
-            );
-          }
-          break;
-        case httpRes?.status == 403:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.postScheduledEventsUuidCancellationRaw403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.PostScheduledEventsUuidCancellationRaw403ApplicationJSON
-              );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
-   * Create Invitee No Show
-   *
-   * @remarks
-   * Marks an Invitee as a No Show.
-   */
-  postInviteeNoShow(
-    req: operations.PostInviteeNoShowRequestBody,
-    config?: AxiosRequestConfig
-  ): Promise<operations.PostInviteeNoShowResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.PostInviteeNoShowRequestBody(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = baseURL.replace(/\/$/, "") + "/invitee_no_shows";
-
-    let [reqBodyHeaders, reqBody]: [object, any] = [{}, {}];
-
-    try {
-      [reqBodyHeaders, reqBody] = utils.serializeRequestBody(
-        req,
-        "request",
-        "json"
-      );
-    } catch (e: unknown) {
-      if (e instanceof Error) {
-        throw new Error(`Error serializing request body, cause: ${e.message}`);
-      }
-    }
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const headers = { ...reqBodyHeaders, ...config?.headers };
-    if (reqBody == null || Object.keys(reqBody).length === 0)
-      throw new Error("request body is required");
-
-    const r = client.request({
-      url: url,
-      method: "post",
-      headers: headers,
-      data: reqBody,
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.PostInviteeNoShowResponse =
-        new operations.PostInviteeNoShowResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 201:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.postInviteeNoShow201ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.PostInviteeNoShow201ApplicationJSON
-              );
-          }
-          break;
-        case [400, 401, 403, 404, 500].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.PostInviteeNoShowErrorResponse
+              operations.DeleteInviteeNoShowErrorResponse
             );
           }
           break;

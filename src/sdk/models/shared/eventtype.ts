@@ -39,6 +39,7 @@ export enum EventTypeKindDescriptionEnum {
 export enum EventTypePoolingTypeEnum {
   RoundRobin = "round_robin",
   Collective = "collective",
+  Null = "null",
 }
 
 /**

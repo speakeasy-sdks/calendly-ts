@@ -1,7 +1,7 @@
 {
   "name": "calendly",
-  "version": "1.1.0",
-  "author": "calendly",
+  "version": "0.0.1",
+  "author": "Speakeasy",
   "scripts": {
     "prepare": "tsc --build"
   },

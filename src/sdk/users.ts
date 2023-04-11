@@ -4,6 +4,7 @@
 
 import * as utils from "../internal/utils";
 import * as operations from "./models/operations";
+import * as shared from "./models/shared";
 import { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
 export class Users {
@@ -31,67 +32,12 @@ export class Users {
   }
 
   /**
-   * Get current user
-   *
-   * @remarks
-   * Returns basic information about your user account.
-   */
-  getMyUserAccount(
-    config?: AxiosRequestConfig
-  ): Promise<operations.GetMyUserAccountResponse> {
-    const baseURL: string = this._serverURL;
-    const url: string = baseURL.replace(/\/$/, "") + "/users/me";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const r = client.request({
-      url: url,
-      method: "get",
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetMyUserAccountResponse =
-        new operations.GetMyUserAccountResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.getMyUserAccount200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetMyUserAccount200ApplicationJSON
-              );
-          }
-          break;
-        case [401, 403, 404, 500].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.GetMyUserAccountErrorResponse
-            );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
    * Get user
    *
    * @remarks
    * Returns information about a specified User.
    */
-  getUser(
+  get(
     req: operations.GetUserRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GetUserResponse> {
@@ -134,6 +80,129 @@ export class Users {
             res.errorResponse = utils.deserializeJSONResponse(
               httpRes?.data,
               operations.GetUserErrorResponse
+            );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
+   * Get Organization Membership
+   *
+   * @remarks
+   * Returns information about a user's Organization Membership
+   */
+  getMemberships(
+    req: operations.GetOrganizationsUuidMembershipsRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.GetOrganizationsUuidMembershipsResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req = new operations.GetOrganizationsUuidMembershipsRequest(req);
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string = utils.generateURL(
+      baseURL,
+      "/organization_memberships/{uuid}",
+      req
+    );
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const r = client.request({
+      url: url,
+      method: "get",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.GetOrganizationsUuidMembershipsResponse =
+        new operations.GetOrganizationsUuidMembershipsResponse({
+          statusCode: httpRes.status,
+          contentType: contentType,
+          rawResponse: httpRes,
+        });
+      switch (true) {
+        case httpRes?.status == 200:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.getOrganizationsUuidMemberships200ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.GetOrganizationsUuidMemberships200ApplicationJSON
+              );
+          }
+          break;
+        case [400, 401, 404, 500].includes(httpRes?.status):
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.GetOrganizationsUuidMembershipsErrorResponse
+            );
+          }
+          break;
+        case httpRes?.status == 403:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse1 = utils.deserializeJSONResponse(
+              httpRes?.data,
+              shared.ErrorResponse
+            );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
+   * Get current user
+   *
+   * @remarks
+   * Returns basic information about your user account.
+   */
+  me(config?: AxiosRequestConfig): Promise<operations.MeResponse> {
+    const baseURL: string = this._serverURL;
+    const url: string = baseURL.replace(/\/$/, "") + "/users/me";
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const r = client.request({
+      url: url,
+      method: "get",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.MeResponse = new operations.MeResponse({
+        statusCode: httpRes.status,
+        contentType: contentType,
+        rawResponse: httpRes,
+      });
+      switch (true) {
+        case httpRes?.status == 200:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.me200ApplicationJSONObject = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.Me200ApplicationJSON
+            );
+          }
+          break;
+        case [401, 403, 404, 500].includes(httpRes?.status):
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.MeErrorResponse
             );
           }
           break;
