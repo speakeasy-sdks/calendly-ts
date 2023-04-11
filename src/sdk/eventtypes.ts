@@ -36,7 +36,7 @@ export class EventTypes {
    * @remarks
    * Returns information about a specified Event Type.
    */
-  getEventTypesUuid(
+  get(
     req: operations.GetEventTypesUuidRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GetEventTypesUuidResponse> {
@@ -101,7 +101,7 @@ export class EventTypes {
    * **NOTE:**
    * * This endpoint does not support traditional keyset pagination.
    */
-  getEventTypeAvailableTimes(
+  getAvailableTimes(
     req: operations.GetEventTypeAvailableTimesRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GetEventTypeAvailableTimesResponse> {
@@ -170,12 +170,12 @@ export class EventTypes {
    *
    * Either `organization` or `user` are required query params when using this endpoint.
    */
-  getEventTypes(
-    req: operations.GetEventTypesRequest,
+  list(
+    req: operations.ListEventTypesRequest,
     config?: AxiosRequestConfig
-  ): Promise<operations.GetEventTypesResponse> {
+  ): Promise<operations.ListEventTypesResponse> {
     if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GetEventTypesRequest(req);
+      req = new operations.ListEventTypesRequest(req);
     }
 
     const baseURL: string = this._serverURL;
@@ -196,8 +196,8 @@ export class EventTypes {
 
       if (httpRes?.status == null)
         throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetEventTypesResponse =
-        new operations.GetEventTypesResponse({
+      const res: operations.ListEventTypesResponse =
+        new operations.ListEventTypesResponse({
           statusCode: httpRes.status,
           contentType: contentType,
           rawResponse: httpRes,
@@ -205,10 +205,10 @@ export class EventTypes {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getEventTypes200ApplicationJSONObject =
+            res.listEventTypes200ApplicationJSONObject =
               utils.deserializeJSONResponse(
                 httpRes?.data,
-                operations.GetEventTypes200ApplicationJSON
+                operations.ListEventTypes200ApplicationJSON
               );
           }
           break;
@@ -216,16 +216,16 @@ export class EventTypes {
           if (utils.matchContentType(contentType, `application/json`)) {
             res.errorResponse = utils.deserializeJSONResponse(
               httpRes?.data,
-              operations.GetEventTypesErrorResponse
+              operations.ListEventTypesErrorResponse
             );
           }
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getEventTypes403ApplicationJSONObject =
+            res.listEventTypes403ApplicationJSONObject =
               utils.deserializeJSONResponse(
                 httpRes?.data,
-                operations.GetEventTypes403ApplicationJSON
+                operations.ListEventTypes403ApplicationJSON
               );
           }
           break;

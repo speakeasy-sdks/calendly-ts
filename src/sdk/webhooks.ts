@@ -31,198 +31,6 @@ export class Webhooks {
   }
 
   /**
-   * Delete Webhook Subscription
-   *
-   * @remarks
-   * Delete a Webhook Subscription.
-   */
-  deleteUsersUserUuidWebhooksWebhookUuid(
-    req: operations.DeleteUsersUserUuidWebhooksWebhookUuidRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.DeleteUsersUserUuidWebhooksWebhookUuidResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.DeleteUsersUserUuidWebhooksWebhookUuidRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/webhook_subscriptions/{webhook_uuid}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const r = client.request({
-      url: url,
-      method: "delete",
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.DeleteUsersUserUuidWebhooksWebhookUuidResponse =
-        new operations.DeleteUsersUserUuidWebhooksWebhookUuidResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 204:
-          break;
-        case [401, 403, 404, 500].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.DeleteUsersUserUuidWebhooksWebhookUuidErrorResponse
-            );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
-   * Get Webhook Subscription
-   *
-   * @remarks
-   * Get a specified Webhook Subscription.
-   */
-  getUsersUserUuidWebhooksWebhookUuid(
-    req: operations.GetUsersUserUuidWebhooksWebhookUuidRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GetUsersUserUuidWebhooksWebhookUuidResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GetUsersUserUuidWebhooksWebhookUuidRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/webhook_subscriptions/{webhook_uuid}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const r = client.request({
-      url: url,
-      method: "get",
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetUsersUserUuidWebhooksWebhookUuidResponse =
-        new operations.GetUsersUserUuidWebhooksWebhookUuidResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.getUsersUserUuidWebhooksWebhookUuid200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetUsersUserUuidWebhooksWebhookUuid200ApplicationJSON
-              );
-          }
-          break;
-        case [401, 403, 404].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.GetUsersUserUuidWebhooksWebhookUuidErrorResponse
-            );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
-   * List Webhook Subscriptions
-   *
-   * @remarks
-   * Get a list of Webhook Subscriptions for a specified Organization or User.
-   */
-  getWebhooks(
-    req: operations.GetWebhooksRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GetWebhooksResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GetWebhooksRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = baseURL.replace(/\/$/, "") + "/webhook_subscriptions";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const queryParams: string = utils.serializeQueryParams(req);
-
-    const r = client.request({
-      url: url + queryParams,
-      method: "get",
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetWebhooksResponse =
-        new operations.GetWebhooksResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.getWebhooks200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetWebhooks200ApplicationJSON
-              );
-          }
-          break;
-        case [400, 401, 404].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.GetWebhooksErrorResponse
-            );
-          }
-          break;
-        case httpRes?.status == 403:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.getWebhooks403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetWebhooks403ApplicationJSON
-              );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
    * Create Webhook Subscription
    *
    * @remarks
@@ -237,7 +45,7 @@ export class Webhooks {
    * | <pre>invitee.canceled</pre> | `organization` `user` |
    * | <pre>routing_form_submission.created</pre> | `organization` <br /> <small>Create separate Webhook Subscriptions for events with different subscription scopes.</small> |
    */
-  postUsersUuidWebhooks(
+  create(
     req: operations.PostUsersUuidWebhooksRequestBody,
     config?: AxiosRequestConfig
   ): Promise<operations.PostUsersUuidWebhooksResponse> {
@@ -311,6 +119,198 @@ export class Webhooks {
               utils.deserializeJSONResponse(
                 httpRes?.data,
                 operations.PostUsersUuidWebhooks403ApplicationJSON
+              );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
+   * Delete Webhook Subscription
+   *
+   * @remarks
+   * Delete a Webhook Subscription.
+   */
+  delete(
+    req: operations.DeleteUsersUserUuidWebhooksWebhookUuidRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.DeleteUsersUserUuidWebhooksWebhookUuidResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req = new operations.DeleteUsersUserUuidWebhooksWebhookUuidRequest(req);
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string = utils.generateURL(
+      baseURL,
+      "/webhook_subscriptions/{webhook_uuid}",
+      req
+    );
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const r = client.request({
+      url: url,
+      method: "delete",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.DeleteUsersUserUuidWebhooksWebhookUuidResponse =
+        new operations.DeleteUsersUserUuidWebhooksWebhookUuidResponse({
+          statusCode: httpRes.status,
+          contentType: contentType,
+          rawResponse: httpRes,
+        });
+      switch (true) {
+        case httpRes?.status == 204:
+          break;
+        case [401, 403, 404, 500].includes(httpRes?.status):
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.DeleteUsersUserUuidWebhooksWebhookUuidErrorResponse
+            );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
+   * Get Webhook Subscription
+   *
+   * @remarks
+   * Get a specified Webhook Subscription.
+   */
+  get(
+    req: operations.GetUsersUserUuidWebhooksWebhookUuidRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.GetUsersUserUuidWebhooksWebhookUuidResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req = new operations.GetUsersUserUuidWebhooksWebhookUuidRequest(req);
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string = utils.generateURL(
+      baseURL,
+      "/webhook_subscriptions/{webhook_uuid}",
+      req
+    );
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const r = client.request({
+      url: url,
+      method: "get",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.GetUsersUserUuidWebhooksWebhookUuidResponse =
+        new operations.GetUsersUserUuidWebhooksWebhookUuidResponse({
+          statusCode: httpRes.status,
+          contentType: contentType,
+          rawResponse: httpRes,
+        });
+      switch (true) {
+        case httpRes?.status == 200:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.getUsersUserUuidWebhooksWebhookUuid200ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.GetUsersUserUuidWebhooksWebhookUuid200ApplicationJSON
+              );
+          }
+          break;
+        case [401, 403, 404].includes(httpRes?.status):
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.GetUsersUserUuidWebhooksWebhookUuidErrorResponse
+            );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
+   * List Webhook Subscriptions
+   *
+   * @remarks
+   * Get a list of Webhook Subscriptions for a specified Organization or User.
+   */
+  list(
+    req: operations.ListWebhooksRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.ListWebhooksResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req = new operations.ListWebhooksRequest(req);
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string = baseURL.replace(/\/$/, "") + "/webhook_subscriptions";
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const queryParams: string = utils.serializeQueryParams(req);
+
+    const r = client.request({
+      url: url + queryParams,
+      method: "get",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.ListWebhooksResponse =
+        new operations.ListWebhooksResponse({
+          statusCode: httpRes.status,
+          contentType: contentType,
+          rawResponse: httpRes,
+        });
+      switch (true) {
+        case httpRes?.status == 200:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.listWebhooks200ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.ListWebhooks200ApplicationJSON
+              );
+          }
+          break;
+        case [400, 401, 404].includes(httpRes?.status):
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.ListWebhooksErrorResponse
+            );
+          }
+          break;
+        case httpRes?.status == 403:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.listWebhooks403ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.ListWebhooks403ApplicationJSON
               );
           }
           break;

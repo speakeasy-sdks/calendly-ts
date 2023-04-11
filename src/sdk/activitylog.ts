@@ -39,12 +39,12 @@ export class ActivityLog {
    *
    * Returns a list of activity log entries
    */
-  activityLog(
-    req: operations.ActivityLogRequest,
+  list(
+    req: operations.ListActivityLogRequest,
     config?: AxiosRequestConfig
-  ): Promise<operations.ActivityLogResponse> {
+  ): Promise<operations.ListActivityLogResponse> {
     if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.ActivityLogRequest(req);
+      req = new operations.ListActivityLogRequest(req);
     }
 
     const baseURL: string = this._serverURL;
@@ -65,8 +65,8 @@ export class ActivityLog {
 
       if (httpRes?.status == null)
         throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.ActivityLogResponse =
-        new operations.ActivityLogResponse({
+      const res: operations.ListActivityLogResponse =
+        new operations.ListActivityLogResponse({
           statusCode: httpRes.status,
           contentType: contentType,
           rawResponse: httpRes,
@@ -74,10 +74,10 @@ export class ActivityLog {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.activityLog200ApplicationJSONObject =
+            res.listActivityLog200ApplicationJSONObject =
               utils.deserializeJSONResponse(
                 httpRes?.data,
-                operations.ActivityLog200ApplicationJSON
+                operations.ListActivityLog200ApplicationJSON
               );
           }
           break;
@@ -85,16 +85,16 @@ export class ActivityLog {
           if (utils.matchContentType(contentType, `application/json`)) {
             res.errorResponse = utils.deserializeJSONResponse(
               httpRes?.data,
-              operations.ActivityLogErrorResponse
+              operations.ListActivityLogErrorResponse
             );
           }
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.activityLog403ApplicationJSONObject =
+            res.listActivityLog403ApplicationJSONObject =
               utils.deserializeJSONResponse(
                 httpRes?.data,
-                operations.ActivityLog403ApplicationJSON
+                operations.ListActivityLog403ApplicationJSON
               );
           }
           break;

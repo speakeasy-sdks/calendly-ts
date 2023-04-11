@@ -32,84 +32,12 @@ export class Availability {
   }
 
   /**
-   * List User Availability Schedules
-   *
-   * @remarks
-   * Returns the availability schedules of the given user.
-   */
-  getUserAvailabilitySchedules(
-    req: operations.GetUserAvailabilitySchedulesRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GetUserAvailabilitySchedulesResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GetUserAvailabilitySchedulesRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/user_availability_schedules";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const queryParams: string = utils.serializeQueryParams(req);
-
-    const r = client.request({
-      url: url + queryParams,
-      method: "get",
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetUserAvailabilitySchedulesResponse =
-        new operations.GetUserAvailabilitySchedulesResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.getUserAvailabilitySchedules200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetUserAvailabilitySchedules200ApplicationJSON
-              );
-          }
-          break;
-        case [400, 401, 404, 500].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.GetUserAvailabilitySchedulesErrorResponse
-            );
-          }
-          break;
-        case httpRes?.status == 403:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.getUserAvailabilitySchedules403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetUserAvailabilitySchedules403ApplicationJSON
-              );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
    * Get User Availability Schedule
    *
    * @remarks
    * This will return the availability schedule of the given UUID.
    */
-  getUserAvailabilitySchedulesUuid(
+  get(
     req: operations.GetUserAvailabilitySchedulesUuidRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GetUserAvailabilitySchedulesUuidResponse> {
@@ -179,6 +107,78 @@ export class Availability {
   }
 
   /**
+   * List User Availability Schedules
+   *
+   * @remarks
+   * Returns the availability schedules of the given user.
+   */
+  getAvailability(
+    req: operations.GetUserAvailabilitySchedulesRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.GetUserAvailabilitySchedulesResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req = new operations.GetUserAvailabilitySchedulesRequest(req);
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string =
+      baseURL.replace(/\/$/, "") + "/user_availability_schedules";
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const queryParams: string = utils.serializeQueryParams(req);
+
+    const r = client.request({
+      url: url + queryParams,
+      method: "get",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.GetUserAvailabilitySchedulesResponse =
+        new operations.GetUserAvailabilitySchedulesResponse({
+          statusCode: httpRes.status,
+          contentType: contentType,
+          rawResponse: httpRes,
+        });
+      switch (true) {
+        case httpRes?.status == 200:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.getUserAvailabilitySchedules200ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.GetUserAvailabilitySchedules200ApplicationJSON
+              );
+          }
+          break;
+        case [400, 401, 404, 500].includes(httpRes?.status):
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.GetUserAvailabilitySchedulesErrorResponse
+            );
+          }
+          break;
+        case httpRes?.status == 403:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.getUserAvailabilitySchedules403ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.GetUserAvailabilitySchedules403ApplicationJSON
+              );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
    * List User Busy Times
    *
    * @remarks
@@ -190,7 +190,7 @@ export class Availability {
    * * This endpoint does not support traditional keyset pagination.
    * * External events will only be returned for calendars that have "Check for conflicts" configured.
    */
-  getUserBusyTimes(
+  getBusyTimes(
     req: operations.GetUserBusyTimesRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GetUserBusyTimesResponse> {

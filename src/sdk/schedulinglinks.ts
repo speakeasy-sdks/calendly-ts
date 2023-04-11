@@ -36,7 +36,7 @@ export class SchedulingLinks {
    * @remarks
    * Creates a single-use scheduling link.
    */
-  postSchedulingLinks(
+  create(
     req: operations.PostSchedulingLinksRequestBody,
     config?: AxiosRequestConfig
   ): Promise<operations.PostSchedulingLinksResponse> {

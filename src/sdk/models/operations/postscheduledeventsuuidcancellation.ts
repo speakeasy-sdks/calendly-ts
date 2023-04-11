@@ -7,12 +7,24 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 import { Expose, Type } from "class-transformer";
 
-export class PostScheduledEventsUuidCancellationRawRequest extends SpeakeasyBase {
+/**
+ * Optional cancellation reason.
+ */
+export class PostScheduledEventsUuidCancellationApplicationJSON extends SpeakeasyBase {
+  /**
+   * Reason for cancellation
+   */
+  @SpeakeasyMetadata()
+  @Expose({ name: "reason" })
+  reason?: string;
+}
+
+export class PostScheduledEventsUuidCancellationRequest extends SpeakeasyBase {
   /**
    * Optional cancellation reason.
    */
-  @SpeakeasyMetadata({ data: "request, media_type=application/xml" })
-  requestBody?: Uint8Array;
+  @SpeakeasyMetadata({ data: "request, media_type=application/json" })
+  requestBody?: PostScheduledEventsUuidCancellationApplicationJSON;
 
   /**
    * The event's unique indentifier
@@ -23,30 +35,30 @@ export class PostScheduledEventsUuidCancellationRawRequest extends SpeakeasyBase
   uuid: string;
 }
 
-export enum PostScheduledEventsUuidCancellationRaw403ApplicationJSONMessageEnum {
+export enum PostScheduledEventsUuidCancellation403ApplicationJSONMessageEnum {
   YouAreNotAllowedToCancelThisEvent = "You are not allowed to cancel this event",
   EventInThePast = "Event in the past",
   EventIsAlreadyCanceled = "Event is already canceled",
 }
 
-export enum PostScheduledEventsUuidCancellationRaw403ApplicationJSONTitleEnum {
+export enum PostScheduledEventsUuidCancellation403ApplicationJSONTitleEnum {
   PermissionDenied = "Permission Denied",
 }
 
 /**
  * Caller not authorized to perform this action
  */
-export class PostScheduledEventsUuidCancellationRaw403ApplicationJSON extends SpeakeasyBase {
+export class PostScheduledEventsUuidCancellation403ApplicationJSON extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
-  message?: PostScheduledEventsUuidCancellationRaw403ApplicationJSONMessageEnum;
+  message?: PostScheduledEventsUuidCancellation403ApplicationJSONMessageEnum;
 
   @SpeakeasyMetadata()
   @Expose({ name: "title" })
-  title?: PostScheduledEventsUuidCancellationRaw403ApplicationJSONTitleEnum;
+  title?: PostScheduledEventsUuidCancellation403ApplicationJSONTitleEnum;
 }
 
-export class PostScheduledEventsUuidCancellationRawErrorResponseDetails extends SpeakeasyBase {
+export class PostScheduledEventsUuidCancellationErrorResponseDetails extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
   message: string;
@@ -59,13 +71,13 @@ export class PostScheduledEventsUuidCancellationRawErrorResponseDetails extends 
 /**
  * Error Object
  */
-export class PostScheduledEventsUuidCancellationRawErrorResponse extends SpeakeasyBase {
+export class PostScheduledEventsUuidCancellationErrorResponse extends SpeakeasyBase {
   @SpeakeasyMetadata({
-    elemType: PostScheduledEventsUuidCancellationRawErrorResponseDetails,
+    elemType: PostScheduledEventsUuidCancellationErrorResponseDetails,
   })
   @Expose({ name: "details" })
-  @Type(() => PostScheduledEventsUuidCancellationRawErrorResponseDetails)
-  details?: PostScheduledEventsUuidCancellationRawErrorResponseDetails[];
+  @Type(() => PostScheduledEventsUuidCancellationErrorResponseDetails)
+  details?: PostScheduledEventsUuidCancellationErrorResponseDetails[];
 
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
@@ -79,7 +91,7 @@ export class PostScheduledEventsUuidCancellationRawErrorResponse extends Speakea
 /**
  * Created
  */
-export class PostScheduledEventsUuidCancellationRaw201ApplicationJSON extends SpeakeasyBase {
+export class PostScheduledEventsUuidCancellation201ApplicationJSON extends SpeakeasyBase {
   /**
    * Provides data pertaining to the cancellation of the Event
    */
@@ -89,7 +101,7 @@ export class PostScheduledEventsUuidCancellationRaw201ApplicationJSON extends Sp
   resource: shared.Cancellation;
 }
 
-export class PostScheduledEventsUuidCancellationRawResponse extends SpeakeasyBase {
+export class PostScheduledEventsUuidCancellationResponse extends SpeakeasyBase {
   @SpeakeasyMetadata()
   contentType: string;
 
@@ -97,7 +109,7 @@ export class PostScheduledEventsUuidCancellationRawResponse extends SpeakeasyBas
    * Request is not valid
    */
   @SpeakeasyMetadata()
-  errorResponse?: PostScheduledEventsUuidCancellationRawErrorResponse;
+  errorResponse?: PostScheduledEventsUuidCancellationErrorResponse;
 
   @SpeakeasyMetadata()
   statusCode: number;
@@ -109,11 +121,11 @@ export class PostScheduledEventsUuidCancellationRawResponse extends SpeakeasyBas
    * Created
    */
   @SpeakeasyMetadata()
-  postScheduledEventsUuidCancellationRaw201ApplicationJSONObject?: PostScheduledEventsUuidCancellationRaw201ApplicationJSON;
+  postScheduledEventsUuidCancellation201ApplicationJSONObject?: PostScheduledEventsUuidCancellation201ApplicationJSON;
 
   /**
    * Caller not authorized to perform this action
    */
   @SpeakeasyMetadata()
-  postScheduledEventsUuidCancellationRaw403ApplicationJSONObject?: PostScheduledEventsUuidCancellationRaw403ApplicationJSON;
+  postScheduledEventsUuidCancellation403ApplicationJSONObject?: PostScheduledEventsUuidCancellation403ApplicationJSON;
 }

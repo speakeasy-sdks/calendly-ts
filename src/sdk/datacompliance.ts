@@ -42,7 +42,7 @@ export class DataCompliance {
    *
    * Time range can be no greater than 24 months and must occur in the past.
    */
-  postDataComplianceDeletionEvents(
+  createDeletionEvent(
     req: operations.PostDataComplianceDeletionEventsRequestBody,
     config?: AxiosRequestConfig
   ): Promise<operations.PostDataComplianceDeletionEventsResponse> {
@@ -131,7 +131,7 @@ export class DataCompliance {
    *
    * To submit a request to remove invitee data from all previously booked events in your organization, use this endpoint. Requests for data deletion can take up to 7 days to complete.
    */
-  postDataComplianceDeletionInvitees(
+  deleteInviteeData(
     req: operations.PostDataComplianceDeletionInviteesRequestBody,
     config?: AxiosRequestConfig
   ): Promise<operations.PostDataComplianceDeletionInviteesResponse> {

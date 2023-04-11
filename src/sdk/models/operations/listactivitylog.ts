@@ -7,7 +7,7 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 import { Expose, Transform, Type } from "class-transformer";
 
-export enum ActivityLogSortEnum {
+export enum ListActivityLogSortEnum {
   ActionAsc = "action:asc",
   ActionDesc = "action:desc",
   ActorDisplayNameAsc = "actor.display_name:asc",
@@ -20,7 +20,7 @@ export enum ActivityLogSortEnum {
   OccurredAtDesc = "occurred_at:desc",
 }
 
-export class ActivityLogRequest extends SpeakeasyBase {
+export class ListActivityLogRequest extends SpeakeasyBase {
   /**
    * The action(s) associated with the entries
    */
@@ -106,32 +106,32 @@ export class ActivityLogRequest extends SpeakeasyBase {
    * Order results by the specified field and direction. List of {field}:{direction} values.
    */
   @SpeakeasyMetadata({ data: "queryParam, style=form;explode=false;name=sort" })
-  sort?: ActivityLogSortEnum[];
+  sort?: ListActivityLogSortEnum[];
 }
 
-export enum ActivityLog403ApplicationJSONMessageEnum {
+export enum ListActivityLog403ApplicationJSONMessageEnum {
   PleaseUpgradeYourCalendlyAccountToEnterprise = "Please upgrade your Calendly account to Enterprise.",
   YouDoNotHavePermissionToAccessThisResource = "You do not have permission to access this resource.",
 }
 
-export enum ActivityLog403ApplicationJSONTitleEnum {
+export enum ListActivityLog403ApplicationJSONTitleEnum {
   PermissionDenied = "Permission Denied",
 }
 
 /**
  * Permission Denied
  */
-export class ActivityLog403ApplicationJSON extends SpeakeasyBase {
+export class ListActivityLog403ApplicationJSON extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
-  message?: ActivityLog403ApplicationJSONMessageEnum;
+  message?: ListActivityLog403ApplicationJSONMessageEnum;
 
   @SpeakeasyMetadata()
   @Expose({ name: "title" })
-  title?: ActivityLog403ApplicationJSONTitleEnum;
+  title?: ListActivityLog403ApplicationJSONTitleEnum;
 }
 
-export class ActivityLogErrorResponseDetails extends SpeakeasyBase {
+export class ListActivityLogErrorResponseDetails extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
   message: string;
@@ -144,11 +144,11 @@ export class ActivityLogErrorResponseDetails extends SpeakeasyBase {
 /**
  * Error Object
  */
-export class ActivityLogErrorResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata({ elemType: ActivityLogErrorResponseDetails })
+export class ListActivityLogErrorResponse extends SpeakeasyBase {
+  @SpeakeasyMetadata({ elemType: ListActivityLogErrorResponseDetails })
   @Expose({ name: "details" })
-  @Type(() => ActivityLogErrorResponseDetails)
-  details?: ActivityLogErrorResponseDetails[];
+  @Type(() => ListActivityLogErrorResponseDetails)
+  details?: ListActivityLogErrorResponseDetails[];
 
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
@@ -162,7 +162,7 @@ export class ActivityLogErrorResponse extends SpeakeasyBase {
 /**
  * Activity log response
  */
-export class ActivityLog200ApplicationJSON extends SpeakeasyBase {
+export class ListActivityLog200ApplicationJSON extends SpeakeasyBase {
   /**
    * The set of activity log entries matching the criteria
    */
@@ -199,7 +199,7 @@ export class ActivityLog200ApplicationJSON extends SpeakeasyBase {
   totalCount: number;
 }
 
-export class ActivityLogResponse extends SpeakeasyBase {
+export class ListActivityLogResponse extends SpeakeasyBase {
   @SpeakeasyMetadata()
   contentType: string;
 
@@ -207,7 +207,7 @@ export class ActivityLogResponse extends SpeakeasyBase {
    * Request is not valid
    */
   @SpeakeasyMetadata()
-  errorResponse?: ActivityLogErrorResponse;
+  errorResponse?: ListActivityLogErrorResponse;
 
   @SpeakeasyMetadata()
   statusCode: number;
@@ -219,11 +219,11 @@ export class ActivityLogResponse extends SpeakeasyBase {
    * OK
    */
   @SpeakeasyMetadata()
-  activityLog200ApplicationJSONObject?: ActivityLog200ApplicationJSON;
+  listActivityLog200ApplicationJSONObject?: ListActivityLog200ApplicationJSON;
 
   /**
    * Permission Denied
    */
   @SpeakeasyMetadata()
-  activityLog403ApplicationJSONObject?: ActivityLog403ApplicationJSON;
+  listActivityLog403ApplicationJSONObject?: ListActivityLog403ApplicationJSON;
 }

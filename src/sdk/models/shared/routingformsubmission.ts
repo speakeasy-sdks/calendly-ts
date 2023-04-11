@@ -12,6 +12,7 @@ import { Expose, Transform, Type } from "class-transformer";
  */
 export enum RoutingFormSubmissionSubmitterTypeEnum {
   Invitee = "Invitee",
+  Null = "null",
 }
 
 /**
