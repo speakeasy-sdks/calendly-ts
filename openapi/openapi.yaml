@@ -275,19 +275,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                description: Service response
-                properties:
-                  collection:
-                    type: array
-                    description: The set of scheduled events matching the criteria
-                    items:
-                      $ref: '#/components/schemas/Event'
-                  pagination:
-                    $ref: '#/components/schemas/Pagination'
-                required:
-                  - collection
-                  - pagination
+                $ref: '#/components/schemas/ScheduledEventsResponse'
               examples:
                 Example:
                   value:
@@ -3729,6 +3717,20 @@ components:
         - deleted_at
         - kind_description
         - admin_managed
+    ScheduledEventsResponse: 
+      type: object
+      description: Service response
+      properties:
+        collection:
+          type: array
+          description: The set of scheduled events matching the criteria
+          items:
+            $ref: '#/components/schemas/Event'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      required:
+        - collection
+        - pagination
     Profile:
       x-tags:
         - Event Types
