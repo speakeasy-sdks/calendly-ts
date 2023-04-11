@@ -1,4 +1,13 @@
-# calendly
+<div align="center">
+    <img src="https://user-images.githubusercontent.com/6267663/231164258-4232466d-cacc-4ec7-9b30-8a8fe4f3073d.svg" width="500" />
+    <h1>Typescript SDK</h1>
+   <p>Integrate to save time and deliver insights</p>
+   <a href="https://developer.calendly.com/api-docs/4b402d5ab3edd-calendly-developer"><img src="https://img.shields.io/static/v1?label=Docs&message=API Ref&color=5444e4&style=for-the-badge" /></a>
+   <a href="https://github.com/speakeasy-sdks/calendly-ts/actions"><img src="https://img.shields.io/github/actions/workflow/status/speakeasy-sdks/calendly-ts/speakeasy_sdk_generation.yml?style=for-the-badge" /></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge" /></a>
+  <a href="https://github.com/speakeasy-sdks/calendly-ts/releases"><img src="https://img.shields.io/github/v/release/speakeasy-sdks/calendly-ts?sort=semver&style=for-the-badge" /></a>
+</div>
+
 
 <!-- Start SDK Installation -->
 ## SDK Installation
