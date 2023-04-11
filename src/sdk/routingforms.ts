@@ -36,7 +36,7 @@ export class RoutingForms {
    * @remarks
    * Get a list of Routing Form Submissions for a specified Routing Form.
    */
-  getRoutingFormSubmissions(
+  getSubmissions(
     req: operations.GetRoutingFormSubmissionsRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GetRoutingFormSubmissionsResponse> {
@@ -99,7 +99,7 @@ export class RoutingForms {
    * @remarks
    * Get a specified Routing Form Submission.
    */
-  getRoutingFormSubmissionsUuid(
+  getSubmissionsByUuid(
     req: operations.GetRoutingFormSubmissionsUuidRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GetRoutingFormSubmissionsUuidResponse> {
@@ -158,74 +158,12 @@ export class RoutingForms {
   }
 
   /**
-   * List Routing Forms
-   *
-   * @remarks
-   * Get a list of Routing Forms for a specified Organization.
-   */
-  getRoutingForms(
-    req: operations.GetRoutingFormsRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GetRoutingFormsResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GetRoutingFormsRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = baseURL.replace(/\/$/, "") + "/routing_forms";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const queryParams: string = utils.serializeQueryParams(req);
-
-    const r = client.request({
-      url: url + queryParams,
-      method: "get",
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetRoutingFormsResponse =
-        new operations.GetRoutingFormsResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.getRoutingForms200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetRoutingForms200ApplicationJSON
-              );
-          }
-          break;
-        case [400, 401, 403, 404, 500].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.GetRoutingFormsErrorResponse
-            );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
    * Get Routing Form
    *
    * @remarks
    * Get a specified Routing Form.
    */
-  getRoutingFormsUuid(
+  getByUuid(
     req: operations.GetRoutingFormsUuidRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GetRoutingFormsUuidResponse> {
@@ -274,6 +212,68 @@ export class RoutingForms {
             res.errorResponse = utils.deserializeJSONResponse(
               httpRes?.data,
               operations.GetRoutingFormsUuidErrorResponse
+            );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
+   * List Routing Forms
+   *
+   * @remarks
+   * Get a list of Routing Forms for a specified Organization.
+   */
+  list(
+    req: operations.ListRoutingFormsRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.ListRoutingFormsResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req = new operations.ListRoutingFormsRequest(req);
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string = baseURL.replace(/\/$/, "") + "/routing_forms";
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const queryParams: string = utils.serializeQueryParams(req);
+
+    const r = client.request({
+      url: url + queryParams,
+      method: "get",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.ListRoutingFormsResponse =
+        new operations.ListRoutingFormsResponse({
+          statusCode: httpRes.status,
+          contentType: contentType,
+          rawResponse: httpRes,
+        });
+      switch (true) {
+        case httpRes?.status == 200:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.listRoutingForms200ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.ListRoutingForms200ApplicationJSON
+              );
+          }
+          break;
+        case [400, 401, 403, 404, 500].includes(httpRes?.status):
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.ListRoutingFormsErrorResponse
             );
           }
           break;

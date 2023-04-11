@@ -7,7 +7,7 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 import { Expose, Type } from "class-transformer";
 
-export class GetEventTypesRequest extends SpeakeasyBase {
+export class ListEventTypesRequest extends SpeakeasyBase {
   /**
    * Return only active event types if true, only inactive if false, or all event types if this parameter is omitted.
    */
@@ -63,30 +63,30 @@ export class GetEventTypesRequest extends SpeakeasyBase {
   user?: string;
 }
 
-export enum GetEventTypes403ApplicationJSONMessageEnum {
+export enum ListEventTypes403ApplicationJSONMessageEnum {
   ThisUserIsNotInYourOrganization = "This user is not in your organization",
   YouDoNotHavePermission = "You do not have permission",
   YouDoNotHavePermissionToAccessThisResource = "You do not have permission to access this resource.",
 }
 
-export enum GetEventTypes403ApplicationJSONTitleEnum {
+export enum ListEventTypes403ApplicationJSONTitleEnum {
   PermissionDenied = "Permission Denied",
 }
 
 /**
  * Permission Denied
  */
-export class GetEventTypes403ApplicationJSON extends SpeakeasyBase {
+export class ListEventTypes403ApplicationJSON extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
-  message?: GetEventTypes403ApplicationJSONMessageEnum;
+  message?: ListEventTypes403ApplicationJSONMessageEnum;
 
   @SpeakeasyMetadata()
   @Expose({ name: "title" })
-  title?: GetEventTypes403ApplicationJSONTitleEnum;
+  title?: ListEventTypes403ApplicationJSONTitleEnum;
 }
 
-export class GetEventTypesErrorResponseDetails extends SpeakeasyBase {
+export class ListEventTypesErrorResponseDetails extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
   message: string;
@@ -99,11 +99,11 @@ export class GetEventTypesErrorResponseDetails extends SpeakeasyBase {
 /**
  * Error Object
  */
-export class GetEventTypesErrorResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata({ elemType: GetEventTypesErrorResponseDetails })
+export class ListEventTypesErrorResponse extends SpeakeasyBase {
+  @SpeakeasyMetadata({ elemType: ListEventTypesErrorResponseDetails })
   @Expose({ name: "details" })
-  @Type(() => GetEventTypesErrorResponseDetails)
-  details?: GetEventTypesErrorResponseDetails[];
+  @Type(() => ListEventTypesErrorResponseDetails)
+  details?: ListEventTypesErrorResponseDetails[];
 
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
@@ -117,7 +117,7 @@ export class GetEventTypesErrorResponse extends SpeakeasyBase {
 /**
  * Service response
  */
-export class GetEventTypes200ApplicationJSON extends SpeakeasyBase {
+export class ListEventTypes200ApplicationJSON extends SpeakeasyBase {
   @SpeakeasyMetadata({ elemType: shared.EventType })
   @Expose({ name: "collection" })
   @Type(() => shared.EventType)
@@ -129,7 +129,7 @@ export class GetEventTypes200ApplicationJSON extends SpeakeasyBase {
   pagination: shared.Pagination;
 }
 
-export class GetEventTypesResponse extends SpeakeasyBase {
+export class ListEventTypesResponse extends SpeakeasyBase {
   @SpeakeasyMetadata()
   contentType: string;
 
@@ -137,7 +137,7 @@ export class GetEventTypesResponse extends SpeakeasyBase {
    * Request is not valid
    */
   @SpeakeasyMetadata()
-  errorResponse?: GetEventTypesErrorResponse;
+  errorResponse?: ListEventTypesErrorResponse;
 
   @SpeakeasyMetadata()
   statusCode: number;
@@ -149,11 +149,11 @@ export class GetEventTypesResponse extends SpeakeasyBase {
    * OK
    */
   @SpeakeasyMetadata()
-  getEventTypes200ApplicationJSONObject?: GetEventTypes200ApplicationJSON;
+  listEventTypes200ApplicationJSONObject?: ListEventTypes200ApplicationJSON;
 
   /**
    * Permission Denied
    */
   @SpeakeasyMetadata()
-  getEventTypes403ApplicationJSONObject?: GetEventTypes403ApplicationJSON;
+  listEventTypes403ApplicationJSONObject?: ListEventTypes403ApplicationJSON;
 }

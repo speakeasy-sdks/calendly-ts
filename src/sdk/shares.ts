@@ -39,7 +39,7 @@ export class Shares {
    * **Note: Any paramater which is not provided in the request body will be copied from the target Event Type.**
    *
    */
-  postShares(
+  create(
     req: operations.PostSharesRequestBody,
     config?: AxiosRequestConfig
   ): Promise<operations.PostSharesResponse> {

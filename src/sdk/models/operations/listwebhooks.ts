@@ -10,12 +10,12 @@ import { Expose, Type } from "class-transformer";
 /**
  * Filter the list by organization or user
  */
-export enum GetWebhooksScopeEnum {
+export enum ListWebhooksScopeEnum {
   Organization = "organization",
   User = "user",
 }
 
-export class GetWebhooksRequest extends SpeakeasyBase {
+export class ListWebhooksRequest extends SpeakeasyBase {
   /**
    * The number of rows to return
    */
@@ -42,7 +42,7 @@ export class GetWebhooksRequest extends SpeakeasyBase {
    * Filter the list by organization or user
    */
   @SpeakeasyMetadata({ data: "queryParam, style=form;explode=true;name=scope" })
-  scope: GetWebhooksScopeEnum;
+  scope: ListWebhooksScopeEnum;
 
   /**
    * Order results by the specified field and direction. Accepts comma-separated list of {field}:{direction} values.
@@ -61,30 +61,30 @@ export class GetWebhooksRequest extends SpeakeasyBase {
   user?: string;
 }
 
-export enum GetWebhooks403ApplicationJSONMessageEnum {
+export enum ListWebhooks403ApplicationJSONMessageEnum {
   YouDoNotHavePermission = "You do not have permission",
   YouDoNotHavePermissionToAccessThisResource = "You do not have permission to access this resource.",
   Unauthorized = "Unauthorized",
 }
 
-export enum GetWebhooks403ApplicationJSONTitleEnum {
+export enum ListWebhooks403ApplicationJSONTitleEnum {
   PermissionDenied = "Permission Denied",
 }
 
 /**
  * Permission Denied
  */
-export class GetWebhooks403ApplicationJSON extends SpeakeasyBase {
+export class ListWebhooks403ApplicationJSON extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
-  message?: GetWebhooks403ApplicationJSONMessageEnum;
+  message?: ListWebhooks403ApplicationJSONMessageEnum;
 
   @SpeakeasyMetadata()
   @Expose({ name: "title" })
-  title?: GetWebhooks403ApplicationJSONTitleEnum;
+  title?: ListWebhooks403ApplicationJSONTitleEnum;
 }
 
-export class GetWebhooksErrorResponseDetails extends SpeakeasyBase {
+export class ListWebhooksErrorResponseDetails extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
   message: string;
@@ -97,11 +97,11 @@ export class GetWebhooksErrorResponseDetails extends SpeakeasyBase {
 /**
  * Error Object
  */
-export class GetWebhooksErrorResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata({ elemType: GetWebhooksErrorResponseDetails })
+export class ListWebhooksErrorResponse extends SpeakeasyBase {
+  @SpeakeasyMetadata({ elemType: ListWebhooksErrorResponseDetails })
   @Expose({ name: "details" })
-  @Type(() => GetWebhooksErrorResponseDetails)
-  details?: GetWebhooksErrorResponseDetails[];
+  @Type(() => ListWebhooksErrorResponseDetails)
+  details?: ListWebhooksErrorResponseDetails[];
 
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
@@ -115,7 +115,7 @@ export class GetWebhooksErrorResponse extends SpeakeasyBase {
 /**
  * OK
  */
-export class GetWebhooks200ApplicationJSON extends SpeakeasyBase {
+export class ListWebhooks200ApplicationJSON extends SpeakeasyBase {
   @SpeakeasyMetadata({ elemType: shared.WebhookSubscription })
   @Expose({ name: "collection" })
   @Type(() => shared.WebhookSubscription)
@@ -127,7 +127,7 @@ export class GetWebhooks200ApplicationJSON extends SpeakeasyBase {
   pagination: shared.Pagination;
 }
 
-export class GetWebhooksResponse extends SpeakeasyBase {
+export class ListWebhooksResponse extends SpeakeasyBase {
   @SpeakeasyMetadata()
   contentType: string;
 
@@ -135,7 +135,7 @@ export class GetWebhooksResponse extends SpeakeasyBase {
    * Request is not valid
    */
   @SpeakeasyMetadata()
-  errorResponse?: GetWebhooksErrorResponse;
+  errorResponse?: ListWebhooksErrorResponse;
 
   @SpeakeasyMetadata()
   statusCode: number;
@@ -147,11 +147,11 @@ export class GetWebhooksResponse extends SpeakeasyBase {
    * OK
    */
   @SpeakeasyMetadata()
-  getWebhooks200ApplicationJSONObject?: GetWebhooks200ApplicationJSON;
+  listWebhooks200ApplicationJSONObject?: ListWebhooks200ApplicationJSON;
 
   /**
    * Permission Denied
    */
   @SpeakeasyMetadata()
-  getWebhooks403ApplicationJSONObject?: GetWebhooks403ApplicationJSON;
+  listWebhooks403ApplicationJSONObject?: ListWebhooks403ApplicationJSON;
 }

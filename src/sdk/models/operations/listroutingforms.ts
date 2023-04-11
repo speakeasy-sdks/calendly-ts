@@ -7,7 +7,7 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 import { Expose, Type } from "class-transformer";
 
-export class GetRoutingFormsRequest extends SpeakeasyBase {
+export class ListRoutingFormsRequest extends SpeakeasyBase {
   /**
    * The number of rows to return
    */
@@ -37,7 +37,7 @@ export class GetRoutingFormsRequest extends SpeakeasyBase {
   sort?: string;
 }
 
-export class GetRoutingFormsErrorResponseDetails extends SpeakeasyBase {
+export class ListRoutingFormsErrorResponseDetails extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
   message: string;
@@ -50,11 +50,11 @@ export class GetRoutingFormsErrorResponseDetails extends SpeakeasyBase {
 /**
  * Error Object
  */
-export class GetRoutingFormsErrorResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata({ elemType: GetRoutingFormsErrorResponseDetails })
+export class ListRoutingFormsErrorResponse extends SpeakeasyBase {
+  @SpeakeasyMetadata({ elemType: ListRoutingFormsErrorResponseDetails })
   @Expose({ name: "details" })
-  @Type(() => GetRoutingFormsErrorResponseDetails)
-  details?: GetRoutingFormsErrorResponseDetails[];
+  @Type(() => ListRoutingFormsErrorResponseDetails)
+  details?: ListRoutingFormsErrorResponseDetails[];
 
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
@@ -68,7 +68,7 @@ export class GetRoutingFormsErrorResponse extends SpeakeasyBase {
 /**
  * OK
  */
-export class GetRoutingForms200ApplicationJSON extends SpeakeasyBase {
+export class ListRoutingForms200ApplicationJSON extends SpeakeasyBase {
   @SpeakeasyMetadata({ elemType: shared.RoutingForm })
   @Expose({ name: "collection" })
   @Type(() => shared.RoutingForm)
@@ -80,7 +80,7 @@ export class GetRoutingForms200ApplicationJSON extends SpeakeasyBase {
   pagination: shared.Pagination;
 }
 
-export class GetRoutingFormsResponse extends SpeakeasyBase {
+export class ListRoutingFormsResponse extends SpeakeasyBase {
   @SpeakeasyMetadata()
   contentType: string;
 
@@ -88,7 +88,7 @@ export class GetRoutingFormsResponse extends SpeakeasyBase {
    * Request is not valid
    */
   @SpeakeasyMetadata()
-  errorResponse?: GetRoutingFormsErrorResponse;
+  errorResponse?: ListRoutingFormsErrorResponse;
 
   @SpeakeasyMetadata()
   statusCode: number;
@@ -100,5 +100,5 @@ export class GetRoutingFormsResponse extends SpeakeasyBase {
    * OK
    */
   @SpeakeasyMetadata()
-  getRoutingForms200ApplicationJSONObject?: GetRoutingForms200ApplicationJSON;
+  listRoutingForms200ApplicationJSONObject?: ListRoutingForms200ApplicationJSON;
 }

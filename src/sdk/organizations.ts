@@ -43,7 +43,7 @@ export class Organizations {
    *
    * * An organization owner can’t be removed
    */
-  deleteOrganizationsUuidMemberships(
+  deleteMemberships(
     req: operations.DeleteOrganizationsUuidMembershipsRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.DeleteOrganizationsUuidMembershipsResponse> {
@@ -103,89 +103,12 @@ export class Organizations {
   }
 
   /**
-   * List Organization Memberships
-   *
-   * @remarks
-   * Use this to list the Organization Memberships for all users belonging to an organization, use:
-   *
-   * * `user` to look up a user's membership in an organization
-   *
-   * * `organization` to look up all users that belong to the organization
-   *
-   * This endpoint can also be used to retrieve your organization URI.
-   */
-  getOrganizationMemberships(
-    req: operations.GetOrganizationMembershipsRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GetOrganizationMembershipsResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GetOrganizationMembershipsRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string =
-      baseURL.replace(/\/$/, "") + "/organization_memberships";
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const queryParams: string = utils.serializeQueryParams(req);
-
-    const r = client.request({
-      url: url + queryParams,
-      method: "get",
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetOrganizationMembershipsResponse =
-        new operations.GetOrganizationMembershipsResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.getOrganizationMemberships200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetOrganizationMemberships200ApplicationJSON
-              );
-          }
-          break;
-        case [400, 401, 404, 500].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.GetOrganizationMembershipsErrorResponse
-            );
-          }
-          break;
-        case httpRes?.status == 403:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
-              httpRes?.data,
-              shared.ErrorResponse
-            );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
    * Get Organization Invitation
    *
    * @remarks
    * Returns an Organization Invitation that was sent to the organization's members.
    */
-  getOrganizationsOrgUuidInvitationsUuid(
+  getInvitations(
     req: operations.GetOrganizationsOrgUuidInvitationsUuidRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.GetOrganizationsOrgUuidInvitationsUuidResponse> {
@@ -244,151 +167,13 @@ export class Organizations {
   }
 
   /**
-   * List Organization Invitations
-   *
-   * @remarks
-   * Returns a list of Organization Invitations that were sent to the organization's members.
-   */
-  getOrganizationsUuidInvitations(
-    req: operations.GetOrganizationsUuidInvitationsRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GetOrganizationsUuidInvitationsResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GetOrganizationsUuidInvitationsRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/organizations/{uuid}/invitations",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const queryParams: string = utils.serializeQueryParams(req);
-
-    const r = client.request({
-      url: url + queryParams,
-      method: "get",
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetOrganizationsUuidInvitationsResponse =
-        new operations.GetOrganizationsUuidInvitationsResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.getOrganizationsUuidInvitations200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetOrganizationsUuidInvitations200ApplicationJSON
-              );
-          }
-          break;
-        case [400, 401, 403, 404, 500].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.GetOrganizationsUuidInvitationsErrorResponse
-            );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
-   * Get Organization Membership
-   *
-   * @remarks
-   * Returns information about a user's Organization Membership
-   */
-  getOrganizationsUuidMemberships(
-    req: operations.GetOrganizationsUuidMembershipsRequest,
-    config?: AxiosRequestConfig
-  ): Promise<operations.GetOrganizationsUuidMembershipsResponse> {
-    if (!(req instanceof utils.SpeakeasyBase)) {
-      req = new operations.GetOrganizationsUuidMembershipsRequest(req);
-    }
-
-    const baseURL: string = this._serverURL;
-    const url: string = utils.generateURL(
-      baseURL,
-      "/organization_memberships/{uuid}",
-      req
-    );
-
-    const client: AxiosInstance = this._securityClient || this._defaultClient;
-
-    const r = client.request({
-      url: url,
-      method: "get",
-      ...config,
-    });
-
-    return r.then((httpRes: AxiosResponse) => {
-      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
-
-      if (httpRes?.status == null)
-        throw new Error(`status code not found in response: ${httpRes}`);
-      const res: operations.GetOrganizationsUuidMembershipsResponse =
-        new operations.GetOrganizationsUuidMembershipsResponse({
-          statusCode: httpRes.status,
-          contentType: contentType,
-          rawResponse: httpRes,
-        });
-      switch (true) {
-        case httpRes?.status == 200:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.getOrganizationsUuidMemberships200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetOrganizationsUuidMemberships200ApplicationJSON
-              );
-          }
-          break;
-        case [400, 401, 404, 500].includes(httpRes?.status):
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
-              httpRes?.data,
-              operations.GetOrganizationsUuidMembershipsErrorResponse
-            );
-          }
-          break;
-        case httpRes?.status == 403:
-          if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
-              httpRes?.data,
-              shared.ErrorResponse
-            );
-          }
-          break;
-      }
-
-      return res;
-    });
-  }
-
-  /**
    * Invite User to Organization
    *
    * @remarks
    *
    * Invites a user to an organization.
    */
-  postOrganizationsUuidInvitations(
+  inviteUser(
     req: operations.PostOrganizationsUuidInvitationsRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.PostOrganizationsUuidInvitationsResponse> {
@@ -484,12 +269,155 @@ export class Organizations {
   }
 
   /**
+   * List Organization Invitations
+   *
+   * @remarks
+   * Returns a list of Organization Invitations that were sent to the organization's members.
+   */
+  listInvitations(
+    req: operations.GetOrganizationsUuidInvitationsRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.GetOrganizationsUuidInvitationsResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req = new operations.GetOrganizationsUuidInvitationsRequest(req);
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string = utils.generateURL(
+      baseURL,
+      "/organizations/{uuid}/invitations",
+      req
+    );
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const queryParams: string = utils.serializeQueryParams(req);
+
+    const r = client.request({
+      url: url + queryParams,
+      method: "get",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.GetOrganizationsUuidInvitationsResponse =
+        new operations.GetOrganizationsUuidInvitationsResponse({
+          statusCode: httpRes.status,
+          contentType: contentType,
+          rawResponse: httpRes,
+        });
+      switch (true) {
+        case httpRes?.status == 200:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.getOrganizationsUuidInvitations200ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.GetOrganizationsUuidInvitations200ApplicationJSON
+              );
+          }
+          break;
+        case [400, 401, 403, 404, 500].includes(httpRes?.status):
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.GetOrganizationsUuidInvitationsErrorResponse
+            );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
+   * List Organization Memberships
+   *
+   * @remarks
+   * Use this to list the Organization Memberships for all users belonging to an organization, use:
+   *
+   * * `user` to look up a user's membership in an organization
+   *
+   * * `organization` to look up all users that belong to the organization
+   *
+   * This endpoint can also be used to retrieve your organization URI.
+   */
+  listMemberships(
+    req: operations.ListOrganizationMembershipsRequest,
+    config?: AxiosRequestConfig
+  ): Promise<operations.ListOrganizationMembershipsResponse> {
+    if (!(req instanceof utils.SpeakeasyBase)) {
+      req = new operations.ListOrganizationMembershipsRequest(req);
+    }
+
+    const baseURL: string = this._serverURL;
+    const url: string =
+      baseURL.replace(/\/$/, "") + "/organization_memberships";
+
+    const client: AxiosInstance = this._securityClient || this._defaultClient;
+
+    const queryParams: string = utils.serializeQueryParams(req);
+
+    const r = client.request({
+      url: url + queryParams,
+      method: "get",
+      ...config,
+    });
+
+    return r.then((httpRes: AxiosResponse) => {
+      const contentType: string = httpRes?.headers?.["content-type"] ?? "";
+
+      if (httpRes?.status == null)
+        throw new Error(`status code not found in response: ${httpRes}`);
+      const res: operations.ListOrganizationMembershipsResponse =
+        new operations.ListOrganizationMembershipsResponse({
+          statusCode: httpRes.status,
+          contentType: contentType,
+          rawResponse: httpRes,
+        });
+      switch (true) {
+        case httpRes?.status == 200:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.listOrganizationMemberships200ApplicationJSONObject =
+              utils.deserializeJSONResponse(
+                httpRes?.data,
+                operations.ListOrganizationMemberships200ApplicationJSON
+              );
+          }
+          break;
+        case [400, 401, 404, 500].includes(httpRes?.status):
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              operations.ListOrganizationMembershipsErrorResponse
+            );
+          }
+          break;
+        case httpRes?.status == 403:
+          if (utils.matchContentType(contentType, `application/json`)) {
+            res.errorResponse1 = utils.deserializeJSONResponse(
+              httpRes?.data,
+              shared.ErrorResponse
+            );
+          }
+          break;
+      }
+
+      return res;
+    });
+  }
+
+  /**
    * Revoke User's Organization Invitation
    *
    * @remarks
    * Use this to revoke an Organization Invitation to an organization. Once revoked, the invitation link that was sent to the invitee is no longer valid.
    */
-  revokeUsersOrganizationInvitation(
+  revokeInvite(
     req: operations.RevokeUsersOrganizationInvitationRequest,
     config?: AxiosRequestConfig
   ): Promise<operations.RevokeUsersOrganizationInvitationResponse> {

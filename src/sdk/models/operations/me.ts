@@ -7,7 +7,7 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 import { Expose, Type } from "class-transformer";
 
-export class GetMyUserAccountErrorResponseDetails extends SpeakeasyBase {
+export class MeErrorResponseDetails extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
   message: string;
@@ -20,11 +20,11 @@ export class GetMyUserAccountErrorResponseDetails extends SpeakeasyBase {
 /**
  * Error Object
  */
-export class GetMyUserAccountErrorResponse extends SpeakeasyBase {
-  @SpeakeasyMetadata({ elemType: GetMyUserAccountErrorResponseDetails })
+export class MeErrorResponse extends SpeakeasyBase {
+  @SpeakeasyMetadata({ elemType: MeErrorResponseDetails })
   @Expose({ name: "details" })
-  @Type(() => GetMyUserAccountErrorResponseDetails)
-  details?: GetMyUserAccountErrorResponseDetails[];
+  @Type(() => MeErrorResponseDetails)
+  details?: MeErrorResponseDetails[];
 
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
@@ -38,7 +38,7 @@ export class GetMyUserAccountErrorResponse extends SpeakeasyBase {
 /**
  * Service response
  */
-export class GetMyUserAccount200ApplicationJSON extends SpeakeasyBase {
+export class Me200ApplicationJSON extends SpeakeasyBase {
   /**
    * Information about the user.
    */
@@ -48,7 +48,7 @@ export class GetMyUserAccount200ApplicationJSON extends SpeakeasyBase {
   resource: shared.User;
 }
 
-export class GetMyUserAccountResponse extends SpeakeasyBase {
+export class MeResponse extends SpeakeasyBase {
   @SpeakeasyMetadata()
   contentType: string;
 
@@ -56,7 +56,7 @@ export class GetMyUserAccountResponse extends SpeakeasyBase {
    * Cannot authenticate caller
    */
   @SpeakeasyMetadata()
-  errorResponse?: GetMyUserAccountErrorResponse;
+  errorResponse?: MeErrorResponse;
 
   @SpeakeasyMetadata()
   statusCode: number;
@@ -68,5 +68,5 @@ export class GetMyUserAccountResponse extends SpeakeasyBase {
    * OK
    */
   @SpeakeasyMetadata()
-  getMyUserAccount200ApplicationJSONObject?: GetMyUserAccount200ApplicationJSON;
+  me200ApplicationJSONObject?: Me200ApplicationJSON;
 }

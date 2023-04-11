@@ -7,7 +7,7 @@ import * as shared from "../shared";
 import { AxiosResponse } from "axios";
 import { Expose, Type } from "class-transformer";
 
-export class GetOrganizationMembershipsRequest extends SpeakeasyBase {
+export class ListOrganizationMembershipsRequest extends SpeakeasyBase {
   /**
    * The number of rows to return
    */
@@ -43,7 +43,7 @@ export class GetOrganizationMembershipsRequest extends SpeakeasyBase {
   user?: string;
 }
 
-export class GetOrganizationMembershipsErrorResponseDetails extends SpeakeasyBase {
+export class ListOrganizationMembershipsErrorResponseDetails extends SpeakeasyBase {
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
   message: string;
@@ -56,13 +56,13 @@ export class GetOrganizationMembershipsErrorResponseDetails extends SpeakeasyBas
 /**
  * Error Object
  */
-export class GetOrganizationMembershipsErrorResponse extends SpeakeasyBase {
+export class ListOrganizationMembershipsErrorResponse extends SpeakeasyBase {
   @SpeakeasyMetadata({
-    elemType: GetOrganizationMembershipsErrorResponseDetails,
+    elemType: ListOrganizationMembershipsErrorResponseDetails,
   })
   @Expose({ name: "details" })
-  @Type(() => GetOrganizationMembershipsErrorResponseDetails)
-  details?: GetOrganizationMembershipsErrorResponseDetails[];
+  @Type(() => ListOrganizationMembershipsErrorResponseDetails)
+  details?: ListOrganizationMembershipsErrorResponseDetails[];
 
   @SpeakeasyMetadata()
   @Expose({ name: "message" })
@@ -76,7 +76,7 @@ export class GetOrganizationMembershipsErrorResponse extends SpeakeasyBase {
 /**
  * Service response
  */
-export class GetOrganizationMemberships200ApplicationJSON extends SpeakeasyBase {
+export class ListOrganizationMemberships200ApplicationJSON extends SpeakeasyBase {
   @SpeakeasyMetadata({ elemType: shared.OrganizationMembership })
   @Expose({ name: "collection" })
   @Type(() => shared.OrganizationMembership)
@@ -88,7 +88,7 @@ export class GetOrganizationMemberships200ApplicationJSON extends SpeakeasyBase 
   pagination: shared.Pagination;
 }
 
-export class GetOrganizationMembershipsResponse extends SpeakeasyBase {
+export class ListOrganizationMembershipsResponse extends SpeakeasyBase {
   @SpeakeasyMetadata()
   contentType: string;
 
@@ -96,7 +96,7 @@ export class GetOrganizationMembershipsResponse extends SpeakeasyBase {
    * Request is not valid
    */
   @SpeakeasyMetadata()
-  errorResponse?: GetOrganizationMembershipsErrorResponse;
+  errorResponse?: ListOrganizationMembershipsErrorResponse;
 
   /**
    * Caller not authorized to perform this action
@@ -114,5 +114,5 @@ export class GetOrganizationMembershipsResponse extends SpeakeasyBase {
    * OK
    */
   @SpeakeasyMetadata()
-  getOrganizationMemberships200ApplicationJSONObject?: GetOrganizationMemberships200ApplicationJSON;
+  listOrganizationMemberships200ApplicationJSONObject?: ListOrganizationMemberships200ApplicationJSON;
 }
