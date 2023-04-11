@@ -10,6 +10,6 @@ generation:
   sdkFlattening: true
   singleTagPerOp: false
 typescript:
-  version: 1.1.0
-  author: calendly
+  version: ""
+  author: Speakeasy
   packageName: calendly
