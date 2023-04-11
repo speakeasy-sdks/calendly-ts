@@ -33,6 +33,7 @@ export * from "./profile";
 export * from "./question";
 export * from "./routingform";
 export * from "./routingformsubmission";
+export * from "./scheduledeventsresponse";
 export * from "./security";
 export * from "./share";
 export * from "./submissioncustommessageresult";

@@ -49,7 +49,7 @@ export type SDKProps = {
  *
  * To access Calendly data through the API, you can authenticate with **personal access tokens** or **OAuth 2.0**. To learn more about these authentication methods and when and how to use them, see [Getting Started with the Calendly API](https://developer.calendly.com/getting-started).
  */
-export class SDK {
+export class Calendly {
   public activityLog: ActivityLog;
   public availability: Availability;
   public dataCompliance: DataCompliance;
@@ -66,7 +66,7 @@ export class SDK {
   public _securityClient: AxiosInstance;
   public _serverURL: string;
   private _language = "typescript";
-  private _sdkVersion = "0.0.1";
+  private _sdkVersion = "0.0.2";
   private _genVersion = "2.17.8";
   private _globals: any;
 

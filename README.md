@@ -26,8 +26,8 @@ import {
 } from "calendly/dist/sdk/models/operations";
 
 import { AxiosError } from "axios";
-import { SDK } from "calendly";
-const sdk = new SDK({
+import { Calendly } from "calendly";
+const sdk = new Calendly({
   security: {
     oauth2: "Bearer YOUR_ACCESS_TOKEN_HERE",
   },
