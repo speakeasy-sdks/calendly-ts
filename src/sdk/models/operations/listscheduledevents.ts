@@ -139,24 +139,6 @@ export class ListScheduledEventsErrorResponse extends SpeakeasyBase {
   title: string;
 }
 
-/**
- * Service response
- */
-export class ListScheduledEvents200ApplicationJSON extends SpeakeasyBase {
-  /**
-   * The set of scheduled events matching the criteria
-   */
-  @SpeakeasyMetadata({ elemType: shared.Event })
-  @Expose({ name: "collection" })
-  @Type(() => shared.Event)
-  collection: shared.Event[];
-
-  @SpeakeasyMetadata()
-  @Expose({ name: "pagination" })
-  @Type(() => shared.Pagination)
-  pagination: shared.Pagination;
-}
-
 export class ListScheduledEventsResponse extends SpeakeasyBase {
   @SpeakeasyMetadata()
   contentType: string;
@@ -167,17 +149,17 @@ export class ListScheduledEventsResponse extends SpeakeasyBase {
   @SpeakeasyMetadata()
   errorResponse?: ListScheduledEventsErrorResponse;
 
+  /**
+   * OK
+   */
+  @SpeakeasyMetadata()
+  scheduledEventsResponse?: shared.ScheduledEventsResponse;
+
   @SpeakeasyMetadata()
   statusCode: number;
 
   @SpeakeasyMetadata()
   rawResponse?: AxiosResponse;
-
-  /**
-   * OK
-   */
-  @SpeakeasyMetadata()
-  listScheduledEvents200ApplicationJSONObject?: ListScheduledEvents200ApplicationJSON;
 
   /**
    * Permission Denied

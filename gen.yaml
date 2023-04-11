@@ -1,6 +1,6 @@
 configVersion: 1.0.0
 management:
-  docChecksum: fb91ce920a4894990128d566ec424901
+  docChecksum: d69fde206136f614b0071ed2858004ad
   docVersion: 2.0.0
   speakeasyVersion: 1.19.6
   generationVersion: 2.17.8
@@ -10,6 +10,6 @@ generation:
   sdkFlattening: true
   singleTagPerOp: false
 typescript:
-  version: 0.0.1
+  version: 0.0.2
   author: Speakeasy
   packageName: calendly

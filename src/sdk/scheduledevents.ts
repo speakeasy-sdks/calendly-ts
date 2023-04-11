@@ -538,11 +538,10 @@ export class ScheduledEvents {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.listScheduledEvents200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.ListScheduledEvents200ApplicationJSON
-              );
+            res.scheduledEventsResponse = utils.deserializeJSONResponse(
+              httpRes?.data,
+              shared.ScheduledEventsResponse
+            );
           }
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):

@@ -102,6 +102,7 @@ src/sdk/models/shared/legacycalendarevent.ts
 src/sdk/models/shared/invitee.ts
 src/sdk/models/shared/inviteetracking.ts
 src/sdk/models/shared/inviteequestionandanswer.ts
+src/sdk/models/shared/scheduledeventsresponse.ts
 src/sdk/models/shared/share.ts
 src/sdk/models/shared/user.ts
 src/sdk/models/shared/webhooksubscription.ts
