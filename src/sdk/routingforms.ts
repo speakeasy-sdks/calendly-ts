@@ -73,7 +73,7 @@ export class RoutingForms {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getRoutingFormSubmissions200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetRoutingFormSubmissions200ApplicationJSON
               );
@@ -81,7 +81,7 @@ export class RoutingForms {
           break;
         case [400, 401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetRoutingFormSubmissionsErrorResponse
             );
@@ -137,7 +137,7 @@ export class RoutingForms {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getRoutingFormSubmissionsUuid200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetRoutingFormSubmissionsUuid200ApplicationJSON
               );
@@ -145,7 +145,7 @@ export class RoutingForms {
           break;
         case [400, 401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetRoutingFormSubmissionsUuidErrorResponse
             );
@@ -201,7 +201,7 @@ export class RoutingForms {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getRoutingFormsUuid200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetRoutingFormsUuid200ApplicationJSON
               );
@@ -209,7 +209,7 @@ export class RoutingForms {
           break;
         case [400, 401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetRoutingFormsUuidErrorResponse
             );
@@ -262,16 +262,15 @@ export class RoutingForms {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.listRoutingForms200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.ListRoutingForms200ApplicationJSON
-              );
+            res.listRoutingForms200ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.ListRoutingForms200ApplicationJSON
+            );
           }
           break;
         case [400, 401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.ListRoutingFormsErrorResponse
             );

@@ -99,7 +99,7 @@ export class Webhooks {
         case httpRes?.status == 201:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.postUsersUuidWebhooks201ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.PostUsersUuidWebhooks201ApplicationJSON
               );
@@ -107,7 +107,7 @@ export class Webhooks {
           break;
         case [400, 401, 404, 409].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.PostUsersUuidWebhooksErrorResponse
             );
@@ -116,7 +116,7 @@ export class Webhooks {
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.postUsersUuidWebhooks403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.PostUsersUuidWebhooks403ApplicationJSON
               );
@@ -173,7 +173,7 @@ export class Webhooks {
           break;
         case [401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.DeleteUsersUserUuidWebhooksWebhookUuidErrorResponse
             );
@@ -229,7 +229,7 @@ export class Webhooks {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getUsersUserUuidWebhooksWebhookUuid200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetUsersUserUuidWebhooksWebhookUuid200ApplicationJSON
               );
@@ -237,7 +237,7 @@ export class Webhooks {
           break;
         case [401, 403, 404].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetUsersUserUuidWebhooksWebhookUuidErrorResponse
             );
@@ -290,16 +290,15 @@ export class Webhooks {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.listWebhooks200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.ListWebhooks200ApplicationJSON
-              );
+            res.listWebhooks200ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.ListWebhooks200ApplicationJSON
+            );
           }
           break;
         case [400, 401, 404].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.ListWebhooksErrorResponse
             );
@@ -307,11 +306,10 @@ export class Webhooks {
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.listWebhooks403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.ListWebhooks403ApplicationJSON
-              );
+            res.listWebhooks403ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.ListWebhooks403ApplicationJSON
+            );
           }
           break;
       }

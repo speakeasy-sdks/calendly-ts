@@ -93,7 +93,7 @@ export class ScheduledEvents {
         case httpRes?.status == 201:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.postScheduledEventsUuidCancellation201ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.PostScheduledEventsUuidCancellation201ApplicationJSON
               );
@@ -101,7 +101,7 @@ export class ScheduledEvents {
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.PostScheduledEventsUuidCancellationErrorResponse
             );
@@ -110,7 +110,7 @@ export class ScheduledEvents {
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.postScheduledEventsUuidCancellation403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.PostScheduledEventsUuidCancellation403ApplicationJSON
               );
@@ -181,16 +181,15 @@ export class ScheduledEvents {
       switch (true) {
         case httpRes?.status == 201:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.postInviteeNoShow201ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.PostInviteeNoShow201ApplicationJSON
-              );
+            res.postInviteeNoShow201ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.PostInviteeNoShow201ApplicationJSON
+            );
           }
           break;
         case [400, 401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.PostInviteeNoShowErrorResponse
             );
@@ -246,7 +245,7 @@ export class ScheduledEvents {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getScheduledEventsUuid200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetScheduledEventsUuid200ApplicationJSON
               );
@@ -254,7 +253,7 @@ export class ScheduledEvents {
           break;
         case [401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetScheduledEventsUuidErrorResponse
             );
@@ -263,7 +262,7 @@ export class ScheduledEvents {
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getScheduledEventsUuid403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetScheduledEventsUuid403ApplicationJSON
               );
@@ -320,16 +319,15 @@ export class ScheduledEvents {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getInvitees200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetInvitees200ApplicationJSON
-              );
+            res.getInvitees200ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.GetInvitees200ApplicationJSON
+            );
           }
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetInviteesErrorResponse
             );
@@ -337,11 +335,10 @@ export class ScheduledEvents {
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getInvitees403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetInvitees403ApplicationJSON
-              );
+            res.getInvitees403ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.GetInvitees403ApplicationJSON
+            );
           }
           break;
       }
@@ -397,7 +394,7 @@ export class ScheduledEvents {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getScheduledEventsEventUuidInviteesInviteeUuid200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetScheduledEventsEventUuidInviteesInviteeUuid200ApplicationJSON
               );
@@ -405,7 +402,7 @@ export class ScheduledEvents {
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetScheduledEventsEventUuidInviteesInviteeUuidErrorResponse
             );
@@ -413,7 +410,7 @@ export class ScheduledEvents {
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
+            res.errorResponse1 = utils.objectToClass(
               httpRes?.data,
               shared.ErrorResponse
             );
@@ -468,16 +465,15 @@ export class ScheduledEvents {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getInviteeNoShow200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetInviteeNoShow200ApplicationJSON
-              );
+            res.getInviteeNoShow200ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.GetInviteeNoShow200ApplicationJSON
+            );
           }
           break;
         case [400, 401, 403, 404].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetInviteeNoShowErrorResponse
             );
@@ -538,7 +534,7 @@ export class ScheduledEvents {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.scheduledEventsResponse = utils.deserializeJSONResponse(
+            res.scheduledEventsResponse = utils.objectToClass(
               httpRes?.data,
               shared.ScheduledEventsResponse
             );
@@ -546,7 +542,7 @@ export class ScheduledEvents {
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.ListScheduledEventsErrorResponse
             );
@@ -555,7 +551,7 @@ export class ScheduledEvents {
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.listScheduledEvents403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.ListScheduledEvents403ApplicationJSON
               );
@@ -612,7 +608,7 @@ export class ScheduledEvents {
           break;
         case [401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.DeleteInviteeNoShowErrorResponse
             );

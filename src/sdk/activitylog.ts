@@ -74,16 +74,15 @@ export class ActivityLog {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.listActivityLog200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.ListActivityLog200ApplicationJSON
-              );
+            res.listActivityLog200ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.ListActivityLog200ApplicationJSON
+            );
           }
           break;
         case [400, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.ListActivityLogErrorResponse
             );
@@ -91,11 +90,10 @@ export class ActivityLog {
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.listActivityLog403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.ListActivityLog403ApplicationJSON
-              );
+            res.listActivityLog403ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.ListActivityLog403ApplicationJSON
+            );
           }
           break;
       }

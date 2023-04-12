@@ -82,7 +82,7 @@ export class Organizations {
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.DeleteOrganizationsUuidMembershipsErrorResponse
             );
@@ -90,7 +90,7 @@ export class Organizations {
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
+            res.errorResponse1 = utils.objectToClass(
               httpRes?.data,
               shared.ErrorResponse
             );
@@ -146,7 +146,7 @@ export class Organizations {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getOrganizationsOrgUuidInvitationsUuid200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetOrganizationsOrgUuidInvitationsUuid200ApplicationJSON
               );
@@ -154,7 +154,7 @@ export class Organizations {
           break;
         case [400, 401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetOrganizationsOrgUuidInvitationsUuidErrorResponse
             );
@@ -231,7 +231,7 @@ export class Organizations {
         case httpRes?.status == 201:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.postOrganizationsUuidInvitations201ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.PostOrganizationsUuidInvitations201ApplicationJSON
               );
@@ -239,7 +239,7 @@ export class Organizations {
           break;
         case httpRes?.status == 400:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               shared.ErrorResponse
             );
@@ -247,7 +247,7 @@ export class Organizations {
           break;
         case [401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
+            res.errorResponse1 = utils.objectToClass(
               httpRes?.data,
               operations.PostOrganizationsUuidInvitationsErrorResponse
             );
@@ -256,7 +256,7 @@ export class Organizations {
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.postOrganizationsUuidInvitations403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.PostOrganizationsUuidInvitations403ApplicationJSON
               );
@@ -314,7 +314,7 @@ export class Organizations {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getOrganizationsUuidInvitations200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetOrganizationsUuidInvitations200ApplicationJSON
               );
@@ -322,7 +322,7 @@ export class Organizations {
           break;
         case [400, 401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetOrganizationsUuidInvitationsErrorResponse
             );
@@ -383,7 +383,7 @@ export class Organizations {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.listOrganizationMemberships200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.ListOrganizationMemberships200ApplicationJSON
               );
@@ -391,7 +391,7 @@ export class Organizations {
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.ListOrganizationMembershipsErrorResponse
             );
@@ -399,7 +399,7 @@ export class Organizations {
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
+            res.errorResponse1 = utils.objectToClass(
               httpRes?.data,
               shared.ErrorResponse
             );
@@ -456,7 +456,7 @@ export class Organizations {
           break;
         case httpRes?.status == 400:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               shared.ErrorResponse
             );
@@ -464,7 +464,7 @@ export class Organizations {
           break;
         case [401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
+            res.errorResponse1 = utils.objectToClass(
               httpRes?.data,
               operations.RevokeUsersOrganizationInvitationErrorResponse
             );
@@ -473,7 +473,7 @@ export class Organizations {
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.revokeUsersOrganizationInvitation403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.RevokeUsersOrganizationInvitation403ApplicationJSON
               );
