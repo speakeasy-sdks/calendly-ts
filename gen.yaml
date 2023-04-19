@@ -2,13 +2,13 @@ configVersion: 1.0.0
 management:
   docChecksum: d69fde206136f614b0071ed2858004ad
   docVersion: 2.0.0
-  speakeasyVersion: 1.20.1
-  generationVersion: 2.18.1
+  speakeasyVersion: 1.20.2
+  generationVersion: 2.18.2
 generation:
   telemetryEnabled: false
   sdkClassName: Calendly
   singleTagPerOp: false
 typescript:
-  version: 0.1.1
+  version: 0.1.2
   author: Speakeasy
   packageName: '@speakeasy-sdks/calendly'
