@@ -75,7 +75,7 @@ export class Availability {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getUserAvailabilitySchedulesUuid200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetUserAvailabilitySchedulesUuid200ApplicationJSON
               );
@@ -83,7 +83,7 @@ export class Availability {
           break;
         case [400, 401, 404].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetUserAvailabilitySchedulesUuidErrorResponse
             );
@@ -92,7 +92,7 @@ export class Availability {
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getUserAvailabilitySchedulesUuid403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetUserAvailabilitySchedulesUuid403ApplicationJSON
               );
@@ -149,7 +149,7 @@ export class Availability {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getUserAvailabilitySchedules200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetUserAvailabilitySchedules200ApplicationJSON
               );
@@ -157,7 +157,7 @@ export class Availability {
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetUserAvailabilitySchedulesErrorResponse
             );
@@ -166,7 +166,7 @@ export class Availability {
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getUserAvailabilitySchedules403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetUserAvailabilitySchedules403ApplicationJSON
               );
@@ -225,16 +225,15 @@ export class Availability {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getUserBusyTimes200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetUserBusyTimes200ApplicationJSON
-              );
+            res.getUserBusyTimes200ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.GetUserBusyTimes200ApplicationJSON
+            );
           }
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetUserBusyTimesErrorResponse
             );
@@ -242,16 +241,15 @@ export class Availability {
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getUserBusyTimes403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetUserBusyTimes403ApplicationJSON
-              );
+            res.getUserBusyTimes403ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.GetUserBusyTimes403ApplicationJSON
+            );
           }
           break;
         case httpRes?.status == 424:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
+            res.errorResponse1 = utils.objectToClass(
               httpRes?.data,
               shared.ErrorResponse
             );

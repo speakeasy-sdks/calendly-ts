@@ -69,7 +69,7 @@ export class Users {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getUser200ApplicationJSONObject = utils.deserializeJSONResponse(
+            res.getUser200ApplicationJSONObject = utils.objectToClass(
               httpRes?.data,
               operations.GetUser200ApplicationJSON
             );
@@ -77,7 +77,7 @@ export class Users {
           break;
         case [401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetUserErrorResponse
             );
@@ -133,7 +133,7 @@ export class Users {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getOrganizationsUuidMemberships200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetOrganizationsUuidMemberships200ApplicationJSON
               );
@@ -141,7 +141,7 @@ export class Users {
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetOrganizationsUuidMembershipsErrorResponse
             );
@@ -149,7 +149,7 @@ export class Users {
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
+            res.errorResponse1 = utils.objectToClass(
               httpRes?.data,
               shared.ErrorResponse
             );
@@ -192,7 +192,7 @@ export class Users {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.me200ApplicationJSONObject = utils.deserializeJSONResponse(
+            res.me200ApplicationJSONObject = utils.objectToClass(
               httpRes?.data,
               operations.Me200ApplicationJSON
             );
@@ -200,7 +200,7 @@ export class Users {
           break;
         case [401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.MeErrorResponse
             );

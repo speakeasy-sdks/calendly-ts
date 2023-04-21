@@ -90,7 +90,7 @@ export class SchedulingLinks {
         case httpRes?.status == 201:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.postSchedulingLinks201ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.PostSchedulingLinks201ApplicationJSON
               );
@@ -98,7 +98,7 @@ export class SchedulingLinks {
           break;
         case [400, 401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.PostSchedulingLinksErrorResponse
             );

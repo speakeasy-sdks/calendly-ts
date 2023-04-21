@@ -3,6 +3,7 @@
  */
 
 import { SpeakeasyBase, SpeakeasyMetadata } from "../../../internal/utils";
+import { RFCDate } from "../../types";
 import { Expose, Transform, Type } from "class-transformer";
 
 /**
@@ -72,8 +73,8 @@ export class ShareShareOverrideAvailabilityRuleRules extends SpeakeasyBase {
    */
   @SpeakeasyMetadata()
   @Expose({ name: "date" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  date?: Date;
+  @Transform(({ value }) => new RFCDate(value), { toClassOnly: true })
+  date?: RFCDate;
 
   @SpeakeasyMetadata({
     elemType: ShareShareOverrideAvailabilityRuleRulesIntervals,
@@ -158,8 +159,8 @@ export class ShareShareOverride extends SpeakeasyBase {
    */
   @SpeakeasyMetadata()
   @Expose({ name: "end_date" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  endDate?: Date;
+  @Transform(({ value }) => new RFCDate(value), { toClassOnly: true })
+  endDate?: RFCDate;
 
   @SpeakeasyMetadata()
   @Expose({ name: "hide_location" })
@@ -187,8 +188,8 @@ export class ShareShareOverride extends SpeakeasyBase {
    */
   @SpeakeasyMetadata()
   @Expose({ name: "start_date" })
-  @Transform(({ value }) => new Date(value), { toClassOnly: true })
-  startDate?: Date;
+  @Transform(({ value }) => new RFCDate(value), { toClassOnly: true })
+  startDate?: RFCDate;
 }
 
 export class Share extends SpeakeasyBase {

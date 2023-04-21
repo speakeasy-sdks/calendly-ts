@@ -69,16 +69,15 @@ export class EventTypes {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.getEventTypesUuid200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.GetEventTypesUuid200ApplicationJSON
-              );
+            res.getEventTypesUuid200ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.GetEventTypesUuid200ApplicationJSON
+            );
           }
           break;
         case [400, 401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetEventTypesUuidErrorResponse
             );
@@ -138,7 +137,7 @@ export class EventTypes {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.getEventTypeAvailableTimes200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
+              utils.objectToClass(
                 httpRes?.data,
                 operations.GetEventTypeAvailableTimes200ApplicationJSON
               );
@@ -146,7 +145,7 @@ export class EventTypes {
           break;
         case [400, 401, 403, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.GetEventTypeAvailableTimesErrorResponse
             );
@@ -205,16 +204,15 @@ export class EventTypes {
       switch (true) {
         case httpRes?.status == 200:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.listEventTypes200ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.ListEventTypes200ApplicationJSON
-              );
+            res.listEventTypes200ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.ListEventTypes200ApplicationJSON
+            );
           }
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.ListEventTypesErrorResponse
             );
@@ -222,11 +220,10 @@ export class EventTypes {
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.listEventTypes403ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.ListEventTypes403ApplicationJSON
-              );
+            res.listEventTypes403ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.ListEventTypes403ApplicationJSON
+            );
           }
           break;
       }

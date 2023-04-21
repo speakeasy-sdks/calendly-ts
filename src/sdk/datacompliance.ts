@@ -97,12 +97,12 @@ export class DataCompliance {
         case httpRes?.status == 202:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.postDataComplianceDeletionEvents202ApplicationJSONObject =
-              utils.deserializeJSONResponse(httpRes?.data);
+              utils.objectToClass(httpRes?.data);
           }
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.PostDataComplianceDeletionEventsErrorResponse
             );
@@ -110,7 +110,7 @@ export class DataCompliance {
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
+            res.errorResponse1 = utils.objectToClass(
               httpRes?.data,
               shared.ErrorResponse
             );
@@ -186,12 +186,12 @@ export class DataCompliance {
         case httpRes?.status == 202:
           if (utils.matchContentType(contentType, `application/json`)) {
             res.postDataComplianceDeletionInvitees202ApplicationJSONObject =
-              utils.deserializeJSONResponse(httpRes?.data);
+              utils.objectToClass(httpRes?.data);
           }
           break;
         case [400, 401, 404, 500].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.PostDataComplianceDeletionInviteesErrorResponse
             );
@@ -199,7 +199,7 @@ export class DataCompliance {
           break;
         case httpRes?.status == 403:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse1 = utils.deserializeJSONResponse(
+            res.errorResponse1 = utils.objectToClass(
               httpRes?.data,
               shared.ErrorResponse
             );

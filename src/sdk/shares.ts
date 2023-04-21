@@ -92,16 +92,15 @@ export class Shares {
       switch (true) {
         case httpRes?.status == 201:
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.postShares201ApplicationJSONObject =
-              utils.deserializeJSONResponse(
-                httpRes?.data,
-                operations.PostShares201ApplicationJSON
-              );
+            res.postShares201ApplicationJSONObject = utils.objectToClass(
+              httpRes?.data,
+              operations.PostShares201ApplicationJSON
+            );
           }
           break;
         case [400, 401, 403, 404].includes(httpRes?.status):
           if (utils.matchContentType(contentType, `application/json`)) {
-            res.errorResponse = utils.deserializeJSONResponse(
+            res.errorResponse = utils.objectToClass(
               httpRes?.data,
               operations.PostSharesErrorResponse
             );

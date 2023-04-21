@@ -47,7 +47,7 @@ export class ListActivityLogRequest extends SpeakeasyBase {
    * Include entries that occurred prior to this time (sample time format: "2020-01-02T03:04:05.678Z"). This time should use the UTC timezone.
    */
   @SpeakeasyMetadata({
-    data: "queryParam, style=form;explode=true;name=max_occurred_at;dateTimeFormat=YYYY-MM-DDThh:mm:ss.sssZ",
+    data: "queryParam, style=form;explode=true;name=max_occurred_at",
   })
   maxOccurredAt?: Date;
 
@@ -55,7 +55,7 @@ export class ListActivityLogRequest extends SpeakeasyBase {
    * Include entries that occurred after this time (sample time format: "2020-01-02T03:04:05.678Z"). This time should use the UTC timezone.
    */
   @SpeakeasyMetadata({
-    data: "queryParam, style=form;explode=true;name=min_occurred_at;dateTimeFormat=YYYY-MM-DDThh:mm:ss.sssZ",
+    data: "queryParam, style=form;explode=true;name=min_occurred_at",
   })
   minOccurredAt?: Date;
 
